@@ -1,0 +1,106 @@
+name: Bug report
+description: Report a reproducible problem in Skopeo.
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Skopeo. Please remove secrets, private source code, tokens, and personal information before submitting screenshots or logs.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Where did the problem happen?
+      options:
+        - Installation / startup
+        - Browser proxy / runtime connection
+        - Annotation / element selection
+        - Notes / screenshot drawing
+        - Send to AI / Copy Prompt
+        - Generated .ai-context files
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug as clearly as possible.
+      placeholder: Tell us what you saw, including any error message.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Give the smallest sequence of steps that consistently triggers the bug.
+      placeholder: |
+        1. Start Skopeo
+        2. Open http://localhost:3000
+        3. Click Annotate
+        4. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: What did you expect Skopeo to do?
+    validations:
+      required: true
+
+  - type: input
+    id: skopeo-version
+    attributes:
+      label: Skopeo version
+      description: Prefilled when you open this form from the extension.
+      placeholder: 0.1.17
+    validations:
+      required: true
+
+  - type: input
+    id: ide
+    attributes:
+      label: IDE
+      description: Prefilled when you open this form from the extension.
+      placeholder: Visual Studio Code 1.xx.x
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      description: Prefilled when you open this form from the extension.
+      placeholder: win32 x64
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Paste only the log lines needed to reproduce or diagnose the issue. Remove secrets first.
+      render: shell
+
+  - type: upload
+    id: screenshots
+    attributes:
+      label: Screenshots or recordings
+      description: Upload screenshots, marked-up images, or a short recording if it helps explain the problem.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed secrets, credentials, private source code, and personal information from the report and attachments.
+          required: true

@@ -1,0 +1,1747 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta
+      name="description"
+      content="Skopeo is a local VS Code extension for visually annotating real web interfaces and handing structured UI context to AI coding agents."
+    />
+    <meta property="og:title" content="Skopeo — See it. Mark it. Ship it." />
+    <meta
+      property="og:description"
+      content="Visual UI context for AI coding agents, captured locally from your real browser preview."
+    />
+    <meta property="og:type" content="website" />
+    <title>Skopeo — Visual context for AI coding agents</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #080808;
+        --panel: #111111;
+        --panel-2: #151515;
+        --text: #f5f5f5;
+        --muted: #9b9b9b;
+        --line: #242424;
+        --line-strong: #343434;
+        --accent: #ffffff;
+        --accent-ink: #090909;
+        --max: 1180px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          radial-gradient(
+            circle at 50% -10%,
+            rgba(255, 255, 255, 0.09),
+            transparent 30rem
+          ),
+          var(--bg);
+        color: var(--text);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .shell {
+        width: min(calc(100% - 40px), var(--max));
+        margin: 0 auto;
+      }
+
+      .nav-wrap {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        background: rgba(8, 8, 8, 0.76);
+        backdrop-filter: blur(18px);
+      }
+
+      nav {
+        min-height: 66px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 720;
+        letter-spacing: -0.02em;
+      }
+
+      .brand svg {
+        width: 25px;
+        height: 25px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      .mini-cta {
+        padding: 8px 12px;
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        color: var(--text) !important;
+        background: #121212;
+      }
+
+      .hero {
+        min-height: calc(100vh - 67px);
+        display: grid;
+        align-items: center;
+        padding: 92px 0 72px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+        gap: clamp(48px, 8vw, 110px);
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+        color: #bdbdbd;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 99px;
+        background: #fff;
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08);
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 0;
+        font-size: clamp(58px, 8.2vw, 116px);
+        line-height: 0.91;
+        letter-spacing: -0.075em;
+        font-weight: 760;
+      }
+
+      h1 span {
+        display: block;
+        color: #777;
+      }
+
+      .hero-copy {
+        max-width: 690px;
+        margin: 30px 0 0;
+        color: #b4b4b4;
+        font-size: clamp(17px, 2vw, 21px);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 48px;
+        padding: 0 18px;
+        border: 1px solid var(--line-strong);
+        border-radius: 10px;
+        background: #121212;
+        font-size: 14px;
+        font-weight: 650;
+        transition:
+          transform 0.18s ease,
+          background 0.18s ease,
+          border-color 0.18s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+        background: #181818;
+        border-color: #4a4a4a;
+      }
+
+      .button.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--accent-ink);
+      }
+
+      .button.primary:hover {
+        background: #e8e8e8;
+      }
+
+      .button svg {
+        width: 17px;
+        height: 17px;
+        flex: 0 0 auto;
+      }
+
+      .release-note {
+        min-height: 21px;
+        margin-top: 12px;
+        color: #737373;
+        font-size: 12px;
+      }
+
+      .visual {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          #0d0d0d;
+        background-size: 38px 38px;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.04),
+          0 35px 100px rgba(0, 0, 0, 0.42);
+      }
+
+      .visual::before {
+        content: "";
+        position: absolute;
+        inset: 18%;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.045);
+        filter: blur(32px);
+      }
+
+      .hero-mark {
+        position: relative;
+        z-index: 2;
+        width: 63%;
+        height: auto;
+        color: #f3f3f3;
+        filter: drop-shadow(0 22px 42px rgba(0, 0, 0, 0.5));
+      }
+
+      .tag {
+        position: absolute;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 11px;
+        border: 1px solid #2b2b2b;
+        border-radius: 9px;
+        background: rgba(14, 14, 14, 0.88);
+        color: #b8b8b8;
+        font:
+          12px/1.2 ui-monospace,
+          SFMono-Regular,
+          Menlo,
+          Consolas,
+          monospace;
+        backdrop-filter: blur(10px);
+      }
+
+      .tag::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #f0f0f0;
+      }
+
+      .tag.one {
+        top: 10%;
+        right: 8%;
+      }
+      .tag.two {
+        bottom: 11%;
+        left: 7%;
+      }
+
+      section {
+        padding: 110px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 40px;
+        align-items: start;
+        margin-bottom: 58px;
+      }
+
+      .kicker {
+        margin: 4px 0 0;
+        color: #777;
+        font:
+          12px/1.4 ui-monospace,
+          SFMono-Regular,
+          Menlo,
+          Consolas,
+          monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin: 0;
+        max-width: 800px;
+        font-size: clamp(36px, 5.1vw, 66px);
+        line-height: 1.02;
+        letter-spacing: -0.055em;
+        font-weight: 720;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        overflow: hidden;
+        background: #0c0c0c;
+      }
+
+      .step {
+        min-height: 260px;
+        padding: 28px;
+        border-right: 1px solid var(--line);
+      }
+      .step:last-child {
+        border-right: 0;
+      }
+
+      .num {
+        color: #5f5f5f;
+        font:
+          12px/1 ui-monospace,
+          SFMono-Regular,
+          Menlo,
+          Consolas,
+          monospace;
+      }
+
+      h3 {
+        margin: 64px 0 12px;
+        font-size: 24px;
+        letter-spacing: -0.035em;
+      }
+
+      .step p,
+      .card p {
+        margin: 0;
+        color: #8f8f8f;
+        font-size: 14px;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .card {
+        min-height: 235px;
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.025), transparent 55%),
+          var(--panel);
+      }
+
+      .card-icon {
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        border: 1px solid #303030;
+        border-radius: 10px;
+        color: #d7d7d7;
+        background: #151515;
+      }
+
+      .card-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+      .card h3 {
+        margin: 46px 0 10px;
+        font-size: 22px;
+      }
+
+      .support-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+
+      .support-card {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        min-height: 126px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--panel);
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .support-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--line-strong);
+      }
+
+      .support-icon {
+        flex: 0 0 auto;
+        width: 50px;
+        height: 50px;
+        display: grid;
+        place-items: center;
+        border: 1px solid #303030;
+        border-radius: 13px;
+        background: #161616;
+        color: #f0f0f0;
+      }
+
+      .support-icon svg {
+        width: 27px;
+        height: 27px;
+      }
+
+      .support-copy h3 {
+        margin: 0 0 5px;
+        font-size: 20px;
+      }
+
+      .support-copy p {
+        margin: 0;
+        color: #858585;
+        font-size: 13px;
+      }
+
+      .support-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 10px;
+        color: #bdbdbd;
+        font:
+          11px/1.2 ui-monospace,
+          SFMono-Regular,
+          Menlo,
+          Consolas,
+          monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .support-status::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #e8e8e8;
+      }
+
+      .stack-label {
+        margin: 38px 0 16px;
+        color: #777;
+        font:
+          11px/1.3 ui-monospace,
+          SFMono-Regular,
+          Menlo,
+          Consolas,
+          monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .stack-item {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #0d0d0d;
+        color: #c7c7c7;
+        font-size: 13px;
+      }
+
+      .stack-item svg {
+        flex: 0 0 auto;
+        width: 23px;
+        height: 23px;
+        color: #ededed;
+      }
+
+      .stack-note {
+        margin: 16px 0 0;
+        color: #727272;
+        font-size: 12px;
+      }
+
+      .install-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .install-card {
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--panel);
+      }
+
+      .install-card h3 {
+        margin: 0 0 8px;
+        font-size: 22px;
+      }
+
+      .install-card > p {
+        margin: 0 0 24px;
+        color: #858585;
+        font-size: 13px;
+      }
+
+      .install-steps {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        counter-reset: install-step;
+      }
+
+      .install-steps li {
+        counter-increment: install-step;
+        position: relative;
+        padding: 0 0 20px 42px;
+        color: #b5b5b5;
+        font-size: 14px;
+      }
+
+      .install-steps li:last-child {
+        padding-bottom: 0;
+      }
+
+      .install-steps li::before {
+        content: counter(install-step);
+        position: absolute;
+        left: 0;
+        top: -2px;
+        width: 26px;
+        height: 26px;
+        display: grid;
+        place-items: center;
+        border: 1px solid #323232;
+        border-radius: 8px;
+        background: #0b0b0b;
+        color: #d4d4d4;
+        font:
+          11px/1 ui-monospace,
+          SFMono-Regular,
+          Menlo,
+          Consolas,
+          monospace;
+      }
+
+      .install-steps strong {
+        color: #f0f0f0;
+        font-weight: 620;
+      }
+
+      .install-code {
+        display: block;
+        margin-top: 8px;
+        padding: 10px 12px;
+        overflow-x: auto;
+        border: 1px solid #292929;
+        border-radius: 9px;
+        background: #090909;
+        color: #c9c9c9;
+        font:
+          12px/1.5 ui-monospace,
+          SFMono-Regular,
+          Menlo,
+          Consolas,
+          monospace;
+        white-space: nowrap;
+      }
+
+      .install-tip {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-left: 2px solid #444;
+        background: #0c0c0c;
+        color: #7f7f7f;
+        font-size: 12px;
+      }
+
+      .local-panel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 420px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        overflow: hidden;
+        background: #0c0c0c;
+      }
+
+      .local-copy {
+        padding: clamp(34px, 6vw, 70px);
+        align-self: center;
+      }
+      .local-copy h2 {
+        font-size: clamp(36px, 4.5vw, 58px);
+      }
+      .local-copy p {
+        max-width: 560px;
+        color: #919191;
+      }
+
+      .terminal {
+        margin: 20px;
+        padding: 24px;
+        border: 1px solid #252525;
+        border-radius: 14px;
+        background: #070707;
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        color: #a7a7a7;
+        font:
+          13px/1.85 ui-monospace,
+          SFMono-Regular,
+          Menlo,
+          Consolas,
+          monospace;
+      }
+
+      .terminal .bright {
+        color: #f0f0f0;
+      }
+      .terminal .dim {
+        color: #5e5e5e;
+      }
+
+      .final-cta {
+        text-align: center;
+        padding: 130px 0;
+      }
+
+      .final-cta h2 {
+        max-width: 850px;
+        margin: 0 auto;
+      }
+      .final-cta p {
+        color: #8a8a8a;
+        margin: 22px auto 0;
+        max-width: 620px;
+      }
+      .final-cta .actions {
+        justify-content: center;
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 28px 0 36px;
+        color: #696969;
+        font-size: 13px;
+      }
+
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 20px;
+      }
+      .footer-links a:hover {
+        color: #bdbdbd;
+      }
+
+      /* Minimal motion: short entrance cues and restrained hover feedback. */
+      @keyframes rise-in {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes mark-drift {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      .hero .eyebrow,
+      .hero h1,
+      .hero-copy,
+      .hero .actions,
+      .release-note,
+      .visual {
+        animation: rise-in 560ms ease-out both;
+      }
+
+      .hero h1 {
+        animation-delay: 70ms;
+      }
+      .hero-copy {
+        animation-delay: 120ms;
+      }
+      .hero .actions {
+        animation-delay: 170ms;
+      }
+      .release-note {
+        animation-delay: 210ms;
+      }
+      .visual {
+        animation-delay: 120ms;
+      }
+      .hero-mark {
+        animation: mark-drift 6s ease-in-out 700ms infinite;
+      }
+
+      .step,
+      .card {
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease,
+          background-color 180ms ease;
+      }
+
+      .step:hover,
+      .card:hover {
+        transform: translateY(-2px);
+        border-color: var(--line-strong);
+      }
+
+      @media (max-width: 1080px) {
+        .hero-grid {
+          gap: clamp(36px, 5vw, 64px);
+        }
+
+        h1 {
+          font-size: clamp(56px, 8vw, 90px);
+        }
+
+        section {
+          padding: 96px 0;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .nav-links a:not(.mini-cta) {
+          display: none;
+        }
+
+        .hero {
+          min-height: auto;
+          padding: 76px 0 68px;
+        }
+
+        .hero-grid,
+        .section-head,
+        .install-grid,
+        .local-panel {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-grid {
+          gap: 54px;
+        }
+
+        h1 {
+          max-width: 720px;
+          font-size: clamp(54px, 10vw, 82px);
+        }
+
+        .hero-copy {
+          max-width: 640px;
+        }
+
+        .visual {
+          width: min(100%, 620px);
+          margin: 0 auto;
+        }
+
+        .steps {
+          grid-template-columns: 1fr;
+        }
+
+        .step {
+          min-height: auto;
+          padding: 28px;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .step:last-child {
+          border-bottom: 0;
+        }
+
+        .step h3 {
+          margin-top: 44px;
+        }
+
+        .features,
+        .support-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .stack-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .section-head {
+          gap: 18px;
+          margin-bottom: 42px;
+        }
+
+        .local-copy {
+          padding-bottom: 20px;
+        }
+
+        .terminal {
+          margin-top: 0;
+          min-width: 0;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .shell {
+          width: min(calc(100% - 32px), var(--max));
+        }
+
+        nav {
+          min-height: 62px;
+        }
+
+        .brand {
+          font-size: 15px;
+        }
+
+        .mini-cta {
+          padding: 7px 10px;
+        }
+
+        .hero {
+          padding: 62px 0 54px;
+        }
+
+        .hero-grid {
+          gap: 42px;
+        }
+
+        .eyebrow {
+          max-width: 90%;
+          font-size: 11px;
+          line-height: 1.5;
+        }
+
+        h1 {
+          font-size: clamp(48px, 14vw, 70px);
+          letter-spacing: -0.065em;
+        }
+
+        .hero-copy {
+          margin-top: 22px;
+          font-size: 17px;
+        }
+
+        .actions {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .actions .button:last-child {
+          grid-column: 1 / -1;
+        }
+
+        .visual {
+          border-radius: 22px;
+        }
+
+        .tag {
+          padding: 7px 9px;
+          font-size: 10px;
+        }
+
+        section {
+          padding: 76px 0;
+        }
+
+        .features,
+        .support-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .stack-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .card {
+          min-height: auto;
+        }
+
+        .card h3 {
+          margin-top: 34px;
+        }
+
+        .local-panel {
+          min-height: 0;
+        }
+
+        .terminal {
+          margin: 0 14px 14px;
+          padding: 20px;
+          overflow-x: auto;
+          font-size: 12px;
+        }
+
+        .footer-links {
+          flex-wrap: wrap;
+          row-gap: 10px;
+        }
+      }
+
+      @media (max-width: 460px) {
+        .shell {
+          width: min(calc(100% - 24px), var(--max));
+        }
+
+        .hero {
+          padding: 52px 0 46px;
+        }
+
+        h1 {
+          font-size: clamp(44px, 14.5vw, 62px);
+        }
+
+        .hero-copy {
+          font-size: 16px;
+        }
+
+        .actions {
+          grid-template-columns: 1fr;
+        }
+
+        .actions .button:last-child {
+          grid-column: auto;
+        }
+
+        .button {
+          width: 100%;
+          min-height: 46px;
+        }
+
+        .release-note {
+          font-size: 11px;
+        }
+
+        .visual {
+          border-radius: 18px;
+        }
+
+        .tag.one {
+          top: 7%;
+          right: 5%;
+        }
+
+        .tag.two {
+          bottom: 7%;
+          left: 5%;
+        }
+
+        section {
+          padding: 66px 0;
+        }
+
+        .section-head {
+          margin-bottom: 32px;
+        }
+
+        h2 {
+          font-size: clamp(34px, 11vw, 48px);
+        }
+
+        .step,
+        .card,
+        .support-card {
+          padding: 22px;
+        }
+
+        .stack-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .step h3,
+        .card h3 {
+          margin-top: 32px;
+          font-size: 21px;
+        }
+
+        .local-copy {
+          padding: 28px 22px 18px;
+        }
+
+        .final-cta {
+          padding: 78px 0;
+        }
+
+        .footer-row {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav-wrap">
+      <nav class="shell" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="Skopeo home">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M1 7V1h6v1.5H2.5V7H1Zm22 0V1h-6v1.5h4.5V7H23ZM1 17v6h6v-1.5H2.5V17H1Zm22 0v6h-6v-1.5h4.5V17H23Z"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M7 12c1.25-1.875 3.05-3.75 5-3.75s3.75 1.875 5 3.75c-1.25 1.875-3.05 3.75-5 3.75S8.25 13.875 7 12Zm5-2.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z"
+              clip-rule="evenodd"
+            />
+            <circle cx="4.5" cy="12" r="1.5" />
+            <circle cx="19.5" cy="12" r="1.5" />
+            <path d="M4.5 11.25h3.8v1.5H4.5v-1.5Zm11.2 0h3.8v1.5h-3.8v-1.5Z" />
+          </svg>
+          <span>Skopeo</span>
+        </a>
+        <div class="nav-links">
+          <a href="#support">Support</a>
+          <a href="#install">Install</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#features">Features</a>
+          <a href="#local">Local-first</a>
+          <a
+            class="mini-cta"
+            id="nav-github"
+            href="https://github.com/DominceAseberos/Skopeo"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" style="border-top: 0">
+        <div class="shell hero-grid">
+          <div>
+            <div class="eyebrow">Spatial Context & Inspection Engine</div>
+            <h1>See it.<span>Mark it. Ship it.</span></h1>
+            <p class="hero-copy">
+              Skopeo lets you visually annotate your real browser preview, captures the
+              DOM and CSS context behind each mark, then hands structured UI
+              instructions to your AI coding agent.
+            </p>
+            <div class="actions">
+              <a
+                class="button primary"
+                id="download-button"
+                href="./downloads/skopeo-ui-latest.vsix"
+                download="skopeo-ui-latest.vsix"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14" />
+                </svg>
+                <span id="download-label">Download latest VSIX</span>
+              </a>
+              <a
+                class="button"
+                id="star-button"
+                href="https://github.com/DominceAseberos/Skopeo"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="m12 2.8 2.85 5.77 6.37.93-4.61 4.49 1.09 6.34L12 17.33l-5.7 3 1.09-6.34L2.78 9.5l6.37-.93L12 2.8Z"
+                  />
+                </svg>
+                <span id="star-label">Star on GitHub</span>
+              </a>
+              <a
+                class="button"
+                href="https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui"
+                target="_blank"
+                rel="noreferrer"
+                >VS Code Marketplace</a
+              >
+            </div>
+            <div class="release-note" id="release-note" aria-live="polite">
+              Latest packaged VSIX · direct download
+            </div>
+          </div>
+
+          <div class="visual" aria-label="Skopeo inspection mark illustration">
+            <div class="tag one">selector + computed CSS</div>
+            <div class="tag two">annotation → AI context</div>
+            <svg
+              class="hero-mark"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M1 7V1h6v1.5H2.5V7H1Zm22 0V1h-6v1.5h4.5V7H23ZM1 17v6h6v-1.5H2.5V17H1Zm22 0v6h-6v-1.5h4.5V17H23Z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M6.1 12C7.6 9.5 9.55 7.35 12 7.35S16.4 9.5 17.9 12c-1.5 2.5-3.45 4.65-5.9 4.65S7.6 14.5 6.1 12ZM12 9.35a2.65 2.65 0 1 0 0 5.3 2.65 2.65 0 0 0 0-5.3Z"
+                clip-rule="evenodd"
+              />
+              <circle cx="3.7" cy="12" r="1.45" />
+              <circle cx="20.3" cy="12" r="1.45" />
+              <path d="M3.7 11.25h3.2v1.5H3.7v-1.5Zm13.4 0h3.2v1.5h-3.2v-1.5Z" />
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <section id="support">
+        <div class="shell">
+          <div class="section-head">
+            <p class="kicker">IDE & stack support</p>
+            <h2>Built for the tools you already use.</h2>
+          </div>
+
+          <div class="support-grid">
+            <article class="support-card">
+              <div class="support-icon" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="m16.8 3.8 3.2 1.5v13.4l-3.2 1.5L8.2 13.5 4 16.7 2 15.5l4.8-3.5L2 8.5l2-1.2 4.2 3.2 8.6-6.7Z"
+                  />
+                  <path d="m9 10.9 7.8-5.8v13.8L9 13.1v-2.2Z" />
+                </svg>
+              </div>
+              <div class="support-copy">
+                <h3>Visual Studio Code</h3>
+                <p>
+                  Desktop VS Code 1.90+ with native Chat / Agent handoff when the
+                  built-in chat command is available.
+                </p>
+                <span class="support-status">Direct AI handoff</span>
+              </div>
+            </article>
+
+            <article class="support-card">
+              <div class="support-icon" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                >
+                  <circle cx="12" cy="12" r="2.4" />
+                  <ellipse
+                    cx="12"
+                    cy="12"
+                    rx="9"
+                    ry="4.2"
+                    transform="rotate(35 12 12)"
+                  />
+                  <ellipse
+                    cx="12"
+                    cy="12"
+                    rx="9"
+                    ry="4.2"
+                    transform="rotate(-35 12 12)"
+                  />
+                </svg>
+              </div>
+              <div class="support-copy">
+                <h3>Antigravity</h3>
+                <p>
+                  Native agent-panel handoff through Antigravity's supported command,
+                  using the same local Skopeo context.
+                </p>
+                <span class="support-status">Direct AI handoff</span>
+              </div>
+            </article>
+
+            <article class="support-card">
+              <div class="support-icon" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M6 4h12l2 4-8 12L4 8l2-4Z" />
+                  <path d="m8 8 4 8 4-8M4 8h16" />
+                </svg>
+              </div>
+              <div class="support-copy">
+                <h3>Kiro</h3>
+                <p>
+                  User-tested with Skopeo's VSIX, Activity Bar panel, localhost browser
+                  workflow, annotations, and generated AI context.
+                </p>
+                <span class="support-status">User-tested compatible</span>
+              </div>
+            </article>
+          </div>
+
+          <p class="stack-label">Tested browser / framework coverage</p>
+          <div class="stack-grid" aria-label="Tested web stack compatibility">
+            <div class="stack-item">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="1.8" fill="currentColor" />
+                <ellipse cx="12" cy="12" rx="9" ry="3.7" />
+                <ellipse cx="12" cy="12" rx="9" ry="3.7" transform="rotate(60 12 12)" />
+                <ellipse
+                  cx="12"
+                  cy="12"
+                  rx="9"
+                  ry="3.7"
+                  transform="rotate(120 12 12)"
+                />
+              </svg>
+              <span>React + Vite</span>
+            </div>
+            <div class="stack-item">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 3 5 20h3l1.4-3.8h5.2L16 20h3L12 3Z" />
+                <path d="M10.3 13.5h3.4L12 8.6l-1.7 4.9Z" />
+              </svg>
+              <span>Astro + Vite</span>
+            </div>
+            <div class="stack-item">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="9" />
+                <path d="M8 16V8l8 8V8" />
+              </svg>
+              <span>Next.js dev</span>
+            </div>
+            <div class="stack-item">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m13 2-8 11h6l-1 9 9-13h-6V2Z" />
+              </svg>
+              <span>Vite HMR</span>
+            </div>
+            <div class="stack-item">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14" />
+              </svg>
+              <span>HTML / HTTP</span>
+            </div>
+          </div>
+          <p class="stack-note">
+            Skopeo operates against a running local HTTP page. These stacks are covered
+            by the current automated compatibility suite; other VS Code-based IDEs and
+            local web stacks may work when they expose compatible extension APIs and
+            normal HTTP browser output.
+          </p>
+        </div>
+      </section>
+
+      <section id="install">
+        <div class="shell">
+          <div class="section-head">
+            <p class="kicker">Manual VSIX setup</p>
+            <h2>Download it once. Set it up in minutes.</h2>
+          </div>
+
+          <div class="install-grid">
+            <article class="install-card">
+              <h3>1. Install the VSIX</h3>
+              <p>No Marketplace account or GitHub Release is required.</p>
+              <ol class="install-steps">
+                <li>
+                  <strong>Download Skopeo</strong> using the direct VSIX button above.
+                </li>
+                <li>
+                  <strong>In Visual Studio Code:</strong> open Extensions, select the
+                  <strong>…</strong> menu, choose <strong>Install from VSIX…</strong>,
+                  then select <code>skopeo-ui-latest.vsix</code>.
+                </li>
+                <li>
+                  <strong
+                    >In Antigravity, Kiro, or another compatible VS Code-based
+                    IDE:</strong
+                  >
+                  use its VSIX / extension install action and choose the same downloaded
+                  file.
+                </li>
+                <li>
+                  Reload the IDE if prompted. Skopeo will appear in the Activity Bar.
+                  <span class="install-code"
+                    >code --install-extension skopeo-ui-latest.vsix</span
+                  >
+                </li>
+              </ol>
+              <div class="install-tip">
+                The command-line example is for desktop VS Code. Other VS Code-based
+                IDEs may use a different executable or install menu. Manual VSIX
+                installs also get Skopeo's once-per-day update check; run
+                <strong>Skopeo: Check for Updates</strong> anytime to check immediately.
+                Marketplace installs continue to use the IDE's native extension
+                auto-update.
+              </div>
+            </article>
+
+            <article class="install-card">
+              <h3>2. Start your first Skopeo session</h3>
+              <p>Skopeo works against your running local development site.</p>
+              <ol class="install-steps">
+                <li>
+                  <strong>Open and trust your web project folder</strong> in the IDE.
+                </li>
+                <li>
+                  <strong>Start your normal dev server</strong> — for example Vite,
+                  Astro, Next.js, or another HTTP server on localhost.
+                </li>
+                <li>
+                  Open the <strong>Skopeo Activity Bar</strong> view or run
+                  <strong>Visual AI Bridge: Start</strong> from the Command Palette.
+                </li>
+                <li>
+                  Enter your local URL such as <code>localhost:5173</code> and select
+                  <strong>Open in Browser</strong>.
+                </li>
+                <li>
+                  Select <strong>Annotate</strong>, click an element, write the
+                  requested change, and use <strong>Notes → Draw</strong> when you want
+                  to mark the screenshot directly.
+                </li>
+                <li>
+                  Select <strong>Send to AI</strong>. Skopeo generates
+                  <code>.ai-context/</code>
+                  locally and hands the short instruction to a supported IDE agent; if
+                  direct handoff is unavailable, the context remains valid and the
+                  prompt can be copied.
+                </li>
+              </ol>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="workflow">
+        <div class="shell">
+          <div class="section-head">
+            <p class="kicker">How it works</p>
+            <h2>Point at the interface. Skopeo handles the context.</h2>
+          </div>
+          <div class="steps">
+            <article class="step">
+              <div class="num">01 / INSPECT</div>
+              <h3>Open your real preview</h3>
+              <p>
+                Run your localhost app through Skopeo's local proxy and inspect the
+                interface in the browser you already use.
+              </p>
+            </article>
+            <article class="step">
+              <div class="num">02 / ANNOTATE</div>
+              <h3>Mark what should change</h3>
+              <p>
+                Click the exact element, write the change you want, and optionally draw
+                directly over the captured screenshot.
+              </p>
+            </article>
+            <article class="step">
+              <div class="num">03 / HANDOFF</div>
+              <h3>Send structured context</h3>
+              <p>
+                Skopeo packages selectors, HTML, CSS, screenshots, and your instructions
+                into local AI-ready context.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="shell">
+          <div class="section-head">
+            <p class="kicker">Built for visual iteration</p>
+            <h2>Less explaining. More precise UI changes.</h2>
+          </div>
+          <div class="features">
+            <article class="card">
+              <div class="card-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path d="M4 4h6M4 4v6m16-6h-6m6 0v6M4 20h6m-6 0v-6m16 6h-6m6 0v-6" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </div>
+              <h3>Browser-first annotation</h3>
+              <p>
+                Annotate the actual running UI with floating browser controls instead of
+                describing positions from memory.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path d="m8 9-4 3 4 3m8-6 4 3-4 3M14 5l-4 14" />
+                </svg>
+              </div>
+              <h3>DOM + CSS context</h3>
+              <p>
+                Each annotation carries a stable selector, sanitized HTML context,
+                visible text, computed CSS, and viewport geometry.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path d="M4 5h16v14H4z" />
+                  <path d="m7 15 3-3 2 2 2.5-2.5L18 15" />
+                  <circle cx="9" cy="9" r="1" />
+                </svg>
+              </div>
+              <h3>Visual evidence</h3>
+              <p>
+                Viewport screenshots, numbered pins, notes, and optional drawing markup
+                give the coding agent spatial context alongside code context.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m14.5 5.5 4 4" />
+                  <path
+                    d="M4 20l3.8-.8L19.2 7.8a1.4 1.4 0 0 0 0-2l-1-1a1.4 1.4 0 0 0-2 0L4.8 16.2 4 20Z"
+                  />
+                  <path d="M7.8 19.2 4.8 16.2" />
+                </svg>
+              </div>
+              <h3>Draw directly on screenshots</h3>
+              <p>
+                Open an annotation image and mark it with pen, arrows, rectangles,
+                circles, text, or the eraser. Skopeo keeps the original screenshot and
+                saves a separate marked-up PNG so the AI can see exactly what you mean.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path d="M12 3v18m0-18 4 4m-4-4L8 7" />
+                  <path d="M5 12a7 7 0 0 0 14 0" />
+                </svg>
+              </div>
+              <h3>Agent handoff</h3>
+              <p>
+                Send the generated context to supported IDE agents, copy the handoff
+                prompt, generate only, or trigger your own terminal command.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="local">
+        <div class="shell">
+          <div class="local-panel">
+            <div class="local-copy">
+              <p class="kicker">Local-first by design</p>
+              <h2>Your UI context stays on your machine.</h2>
+              <p>
+                Skopeo binds its bridge to loopback, writes generated context inside
+                your project, and does not require a hosted Skopeo backend, account,
+                analytics service, or paid API.
+              </p>
+            </div>
+            <div class="terminal" aria-label="Example generated files">
+              <span class="dim">$ tree .ai-context</span>
+              <span class="bright">.ai-context/</span>
+              <span>├── PROMPT.md</span>
+              <span>├── context.json</span>
+              <span>├── annotation-001.html</span>
+              <span>├── annotation-001.png</span>
+              <span>└── annotation-001-marked.png</span>
+              <br />
+              <span class="dim"># generated locally inside your workspace</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <div class="shell">
+          <p class="kicker">Try Skopeo</p>
+          <h2>Give your coding agent the part screenshots usually miss.</h2>
+          <p>
+            Install the latest build, open your local project, annotate the running
+            interface, and hand the exact visual context to your AI workflow.
+          </p>
+          <div class="actions">
+            <a
+              class="button primary"
+              id="download-button-bottom"
+              href="./downloads/skopeo-ui-latest.vsix"
+              download="skopeo-ui-latest.vsix"
+              >Download latest VSIX</a
+            >
+            <a
+              class="button"
+              href="https://github.com/DominceAseberos/Skopeo"
+              target="_blank"
+              rel="noreferrer"
+              >View source on GitHub</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer-row">
+        <span>Skopeo · MIT License</span>
+        <div class="footer-links">
+          <a
+            href="https://github.com/DominceAseberos/Skopeo"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub</a
+          >
+          <a
+            href="https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui"
+            target="_blank"
+            rel="noreferrer"
+            >Marketplace</a
+          >
+          <a href="#top">Back to top ↑</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (() => {
+        const owner = "DominceAseberos";
+        const repo = "Skopeo";
+        const apiBase = `https://api.github.com/repos/${owner}/${repo}`;
+        const latestVsixUrl = "./downloads/skopeo-ui-latest.vsix";
+        const latestMetadataUrl = "./downloads/latest.json";
+
+        const downloadButton = document.getElementById("download-button");
+        const downloadBottom = document.getElementById("download-button-bottom");
+        const downloadLabel = document.getElementById("download-label");
+        const releaseNote = document.getElementById("release-note");
+        const starLabel = document.getElementById("star-label");
+
+        const compactNumber = (value) => {
+          if (value < 1000) return String(value);
+          return new Intl.NumberFormat("en", {
+            notation: "compact",
+            maximumFractionDigits: 1,
+          }).format(value);
+        };
+
+        downloadButton.href = latestVsixUrl;
+        downloadBottom.href = latestVsixUrl;
+
+        fetch(latestMetadataUrl)
+          .then((response) => {
+            if (!response.ok) throw new Error("Latest package metadata unavailable");
+            return response.json();
+          })
+          .then((metadata) => {
+            const version = metadata.version ? `v${metadata.version}` : "latest";
+            downloadLabel.textContent = `Download ${version}`;
+            downloadBottom.textContent = `Download ${version}`;
+            releaseNote.textContent = `${version} · direct VSIX download`;
+          })
+          .catch(() => {
+            releaseNote.textContent = "Latest packaged VSIX · direct download";
+          });
+
+        fetch(apiBase, {
+          headers: { Accept: "application/vnd.github+json" },
+        })
+          .then((response) => {
+            if (!response.ok) throw new Error("Repository data unavailable");
+            return response.json();
+          })
+          .then((data) => {
+            if (Number.isFinite(data.stargazers_count)) {
+              starLabel.textContent = `Star on GitHub · ${compactNumber(data.stargazers_count)}`;
+            }
+          })
+          .catch(() => {
+            starLabel.textContent = "Star on GitHub";
+          });
+      })();
+    </script>
+  </body>
+</html>
