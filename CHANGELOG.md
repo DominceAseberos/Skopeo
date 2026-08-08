@@ -19,6 +19,7 @@
 - Added a no-backend update checker for manual VSIX installs. Skopeo checks the public GitHub Pages `latest.json` at most once per day, offers the latest direct VSIX or Marketplace when a newer stable version exists, and exposes **Skopeo: Check for Updates** for an immediate manual check. The background check can be disabled with `visualAIBridge.checkForUpdates`.
 - Documented Kiro as a user-tested compatible VS Code-based IDE while keeping dedicated direct-agent claims limited to the integrations Skopeo actually detects.
 - Expanded automated coverage to **135 passing tests across 26 files**, including browser-preview controls, visual-spec validation, pasted-image transforms, component placement/rendering, cross-layer ordering, component providers/catalog transport, shadcn registry parsing, AI-context serialization, route synchronization, bug-report URL generation, and update version comparison.
+- Hardened VSIX packaging so local log/audit artifacts are excluded from release bundles; the current 0.1.18 package is rebuilt through the canonical check → test → build → package → site-sync pipeline.
 - Documentation and compatibility follow-up work after the 0.1.13 baseline.
 
 ## 0.1.13
