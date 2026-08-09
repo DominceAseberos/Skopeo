@@ -9,7 +9,7 @@
 - Explicit appearance overrides now propagate through the real sandboxed renderer, flattened annotation screenshots, saved visual specifications, `context.json`, and `PROMPT.md`. The local DOM/canvas fallback honors the same appearance values.
 - Upgraded the bundled and managed **Skopeo Component Renderer to 0.1.1** while preserving **61 real component families / 365 presets**. If an older managed renderer such as 0.1.0 is still installed, Skopeo now prefers the newer bundled renderer immediately while keeping the normal managed-library **Update** action available.
 - Regenerated the versioned managed-renderer package and SHA-256 metadata for renderer 0.1.1.
-- Expanded automated coverage to **166 passing tests across 35 files**, including appearance validation, preview-only context separation, inspector controls, renderer URL propagation, fallback rendering, Auto Contrast behavior, and reset behavior.
+- Expanded automated coverage to **167 passing tests across 35 files**, including appearance validation, preview-only context separation, inspector controls, renderer URL propagation, fallback rendering, Auto Contrast behavior, reset behavior, and protection against an older managed renderer overriding a newer bundled renderer.
 - Updated the public website and release documentation for the component appearance/contrast workflow.
 
 ## 0.1.19 - 2026-08-09

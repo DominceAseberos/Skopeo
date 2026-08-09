@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -1679,8 +1679,11 @@
               <p>
                 Install, update, repair, or remove the shadcn/ui renderer in
                 Skopeo-owned global storage. Packages are hash-verified, staged,
-                manifest-validated, atomically activated, and rolled back on failure
-                without modifying the user project.
+                manifest-validated, atomically activated, and rolled back on failure. If
+                a managed renderer is older than the renderer bundled with Skopeo, the
+                newer bundled copy becomes active immediately while the managed
+                installation remains available for Update/Repair/Remove. The user
+                project is never modified by preview-library management.
               </p>
             </article>
             <article class="card">
@@ -1738,7 +1741,7 @@
               <p>
                 The current release passes TypeScript, ESLint, Prettier, production
                 build, VSIX packaging, and
-                <strong>166 / 166 tests across 35 files</strong>. The bundled and
+                <strong>167 / 167 tests across 35 files</strong>. The bundled and
                 managed real-component renderer is version 0.1.1.
               </p>
             </article>
