@@ -1,6 +1,6 @@
 # Skopeo (formerly Visual AI Bridge)
 
-![Version](https://img.shields.io/badge/version-0.1.20-2563eb)
+![Version](https://img.shields.io/badge/version-0.1.21-2563eb)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![Tests](https://img.shields.io/badge/tests-167%20passing-22c55e)
 ![Local only](https://img.shields.io/badge/data-local%20only-8b5cf6)
@@ -246,7 +246,7 @@ Terminal placeholders `${promptPath}` and `${promptDir}` are shell-quoted automa
 
 ### Current packaged VSIX
 
-The repository's tracked `skopeo-ui-0.1.20.vsix` has been rebuilt from the current `main` branch through the canonical check → test → build → package → site-sync pipeline. The release bundle excludes local audit/log artifacts and includes the latest browser-preview workflow:
+The repository's tracked `skopeo-ui-0.1.21.vsix` has been rebuilt from the current `main` branch through the canonical check → test → build → package → site-sync pipeline. The release bundle excludes local audit/log artifacts and includes the latest browser-preview workflow:
 
 - draggable, minimizable floating **Annotate**, **Notes**, **Send**, **Copy**, and **Clear** controls inside the real browser preview; minimizing closes open Notes/drawing UI so compact mode stays icon-only
 - an active **Notes** manager with screenshot thumbnails, inline note editing/saving, and shared synchronization with the IDE panel and generated `.ai-context/`
@@ -261,7 +261,8 @@ The repository's tracked `skopeo-ui-0.1.20.vsix` has been rebuilt from the curre
 - automatic SPA route synchronization for `pushState`, `replaceState`, back/forward navigation, and hash changes
 - a **Report a Bug** action in the Skopeo panel and Command Palette that opens a structured GitHub Issue Form with Skopeo/IDE/OS details prefilled and optional screenshot or recording upload
 - a no-backend update checker for manual VSIX installs: Skopeo checks the GitHub Pages `latest.json` at most once per day and offers the direct latest VSIX or Marketplace when a newer version exists; **Skopeo: Check for Updates** forces an immediate check
-- the packaged 0.1.20 release baseline is **166 passing tests across 35 files** and includes renderer 0.1.1 plus the component appearance/contrast workflow described below
+- real shadcn previews use renderer **0.1.2**, which keeps preset surfaces centered and fixes blank/off-canvas Sidebar previews in narrow Draw frames
+- the packaged 0.1.21 release baseline is **167 passing tests across 35 files** and includes the component appearance/contrast workflow plus the renderer reliability fixes described below
 
 You can install Skopeo directly from the **[Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui)**!
 
@@ -272,13 +273,13 @@ In VS Code:
 1. Open **Extensions**.
 2. Select the `...` menu.
 3. Choose **Install from VSIX...**.
-4. Select `skopeo-ui-0.1.20.vsix`.
+4. Select `skopeo-ui-0.1.21.vsix`.
 5. Reload VS Code when prompted.
 
 Command line:
 
 ```bash
-code --install-extension skopeo-ui-0.1.20.vsix
+code --install-extension skopeo-ui-0.1.21.vsix
 ```
 
 ## Private development and release workflow
@@ -390,7 +391,7 @@ Current source-tree automated suite:
 166 passing tests
 ```
 
-The 0.1.20 coverage includes Draw side-panel/scroll containment, renderer-manifest validation, managed-library install/update/repair/remove, staged SHA-256 verification and rollback, managed→bundled fallback, catalog/server hot-swapping, sandboxed renderer-frame URLs/capture messaging, Provider → Category → Family → Preset browsing, exact preset placement, renderer-aware protocol validation, explicit appearance propagation, screenshot-aware Auto Contrast, reset behavior, and guaranteed omission of preview-only contrast from AI implementation context.
+The 0.1.21 coverage includes Draw side-panel/scroll containment, renderer-manifest validation, managed-library install/update/repair/remove, staged SHA-256 verification and rollback, managed→bundled fallback, catalog/server hot-swapping, sandboxed renderer-frame URLs/capture messaging, Provider → Category → Family → Preset browsing, exact preset placement, renderer-aware protocol validation, explicit appearance propagation, screenshot-aware Auto Contrast, reset behavior, guaranteed omission of preview-only contrast from AI implementation context, centered preset surfaces, and preview-safe Sidebar rendering.
 
 ## Security and privacy
 

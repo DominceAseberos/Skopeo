@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.21 - 2026-08-09
+
+- Upgraded the component preview renderer to **0.1.2**. Real component frames now use a strict viewport-sized centered surface so presets remain centered inside the preview canvas.
+- Fixed shadcn/ui **Sidebar** presets rendering as blank white frames. The preview composition no longer depends on a missing `TooltipProvider`, and Sidebar uses a preview-safe static shadcn composition so narrow preview iframes cannot hide it behind responsive mobile/off-canvas behavior.
+- Verified Button, Avatar, and Sidebar with real headless Chrome rendering at a narrow 450×320 preview viewport.
+
 ## 0.1.20 - 2026-08-09
 
 - Added a dedicated **Appearance** workflow for placed UI components in Draw. Selected components now expose preview contrast modes plus explicit **Background**, **Text**, and **Border** color controls.
