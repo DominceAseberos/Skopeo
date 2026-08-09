@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.20 - 2026-08-09
+
+- Added a dedicated **Appearance** workflow for placed UI components in Draw. Selected components now expose preview contrast modes plus explicit **Background**, **Text**, and **Border** color controls.
+- Added **Preview Contrast** modes: Original, Auto, Light backdrop, Dark backdrop, and Outline. These are editor-only visibility aids and are intentionally stripped from generated AI implementation context.
+- Added screenshot-aware **Auto Contrast**. When explicitly triggered, Skopeo samples the underlying annotation screenshot and applies real high-contrast component colors; these deliberate colors are preserved as implementation intent.
+- Added **Reset shadcn** to clear explicit appearance overrides and return the component to its original preset/theme styling.
+- Explicit appearance overrides now propagate through the real sandboxed renderer, flattened annotation screenshots, saved visual specifications, `context.json`, and `PROMPT.md`. The local DOM/canvas fallback honors the same appearance values.
+- Upgraded the bundled and managed **Skopeo Component Renderer to 0.1.1** while preserving **61 real component families / 365 presets**. If an older managed renderer such as 0.1.0 is still installed, Skopeo now prefers the newer bundled renderer immediately while keeping the normal managed-library **Update** action available.
+- Regenerated the versioned managed-renderer package and SHA-256 metadata for renderer 0.1.1.
+- Expanded automated coverage to **166 passing tests across 35 files**, including appearance validation, preview-only context separation, inspector controls, renderer URL propagation, fallback rendering, Auto Contrast behavior, and reset behavior.
+- Updated the public website and release documentation for the component appearance/contrast workflow.
+
 ## 0.1.19 - 2026-08-09
 
 - Added a dedicated **Copy Prompt** button beside **Send to AI**. It generates the current `.ai-context/` and copies the standard handoff instruction to the clipboard without changing the configured agent mode.
