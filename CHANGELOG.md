@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+## 0.1.22 - 2026-08-10
+
+- Added live **Interact mode** for real renderer-backed components in Draw. Edit mode keeps drag/resize/rotate/layer controls; Interact mode gives the sandboxed component frame pointer and keyboard input for hover, click, typing, tabs, accordions, dropdowns, tooltips, sliders, carousels, and internal scrolling.
+- Real shadcn preset previews in the Components browser are now interactive before placement. The preview surface receives component input while dragging remains available from the surrounding preset card/footer.
+- Added an explicit **Edit / Interact** toggle to the placed-component inspector, a cyan live-interaction outline/badge, and `Esc` handling across the sandbox boundary to return to Edit mode.
+- Interaction state is preview-only by default. **Save Drawing** exits Interact mode and recreates the component from saved props before renderer capture, so temporary clicks, opened accordions, and typed test values do not silently become AI implementation intent.
+- Upgraded the source renderer to **0.1.3** with iframe overscroll containment and the narrow `skopeo-renderer:exit-interact` message used by `Esc`.
+
 ## 0.1.21 - 2026-08-09
 
 - Upgraded the component preview renderer to **0.1.2**. Real component frames now use a strict viewport-sized centered surface so presets remain centered inside the preview canvas.

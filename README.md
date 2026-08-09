@@ -1,8 +1,8 @@
 # Skopeo (formerly Visual AI Bridge)
 
-![Version](https://img.shields.io/badge/version-0.1.21-2563eb)
+![Version](https://img.shields.io/badge/version-0.1.22-2563eb)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-167%20passing-22c55e)
+![Tests](https://img.shields.io/badge/tests-170%20passing-22c55e)
 ![Local only](https://img.shields.io/badge/data-local%20only-8b5cf6)
 ![License](https://img.shields.io/badge/license-MIT-64748b)
 
@@ -56,6 +56,7 @@ Automatic mode does not require editing the target project. Manual injection rem
 - **Components** opens as a responsive side panel beside the screenshot instead of covering the Draw frame. Browse **Provider → Category → Component family → Preset/variant**. The shadcn renderer library currently exposes **61 real component families and 365 presets**, including 20 Button presets. The library card shows whether Skopeo is using the bundled fallback or a managed installation and provides **Install Library**, **Update**, **Repair**, and **Remove** actions. Managed installs live in extension global storage and never write preview-library files into the current project. Click **Add** or drag the exact preset onto the screenshot; multiple components can coexist in one annotation and remain movable, resizable, duplicable, rotatable, reorderable, and prop-editable
 - Selecting a placed component exposes an **Appearance** inspector. **Preview Contrast** can use Original, Auto, Light backdrop, Dark backdrop, or Outline to make a component easier to see while editing; these preview-only modes are not sent to the AI as implementation intent. Explicit **Background**, **Text**, and **Border** colors are real overrides and are saved into the visual specification. **Auto Contrast** samples the screenshot underneath the component and applies deliberate high-contrast colors, while **Reset shadcn** clears those overrides and restores the original preset/theme
 - Real shadcn previews come from the separate **Skopeo Component Renderer** project, which owns the actual installed React/shadcn source and builds an isolated local renderer app. Skopeo can install a versioned prebuilt renderer package into extension global storage and hot-swap the catalog/loopback renderer without restarting the IDE; the renderer bundled in the VSIX remains an offline/migration fallback. If an installed managed renderer is older than the renderer bundled with the current Skopeo extension, Skopeo activates the newer bundled renderer immediately while keeping the managed copy installed and eligible for **Update**, so stale library state cannot block newer Draw capabilities such as appearance editing. Each preview runs in a sandboxed `allow-scripts` frame without `allow-same-origin`, so it cannot access the inspected application's DOM. The existing Skopeo DOM/canvas adapter remains only as a fallback when a renderer frame is unavailable
+- **0.1.22 interaction upgrade:** real preset previews are live-interactive, and placed renderer-backed components have explicit **Edit / Interact** modes. Edit keeps transform controls; Interact enables hover, click, typing, keyboard controls, component-internal scrolling, accordions/tabs/dropdowns/tooltips/sliders/carousels, and other real shadcn behavior inside the sandbox. `Esc` returns to Edit, and Save Drawing resets transient interaction state before capture so preview-only testing does not silently alter generated AI intent
 - Draw uses one shared layer order for pasted references and placed components, then renders drawing markup above them. When saving, Skopeo asks each real renderer frame for a transparent PNG snapshot and uses that same rendered visual in the flattened marked-up screenshot; failed frame capture safely falls back to the local adapter instead of failing the annotation save
 - Browser success/error popups confirm annotation saves/updates, AI handoff or prompt copy, and session clearing
 - Mouse-wheel/trackpad scrolling stays inside the hovered Skopeo Notes panel, textarea, Draw stage, component palette, or inspector. Scroll chaining into the underlying preview page is blocked even when an inner Draw scroller reaches its edge
@@ -246,7 +247,7 @@ Terminal placeholders `${promptPath}` and `${promptDir}` are shell-quoted automa
 
 ### Current packaged VSIX
 
-The repository's tracked `skopeo-ui-0.1.21.vsix` has been rebuilt from the current `main` branch through the canonical check → test → build → package → site-sync pipeline. The release bundle excludes local audit/log artifacts and includes the latest browser-preview workflow:
+The repository's tracked `skopeo-ui-0.1.22.vsix` has been rebuilt from the current `main` branch through the canonical check → test → build → package → site-sync pipeline. The release bundle excludes local audit/log artifacts and includes the latest browser-preview workflow:
 
 - draggable, minimizable floating **Annotate**, **Notes**, **Send**, **Copy**, and **Clear** controls inside the real browser preview; minimizing closes open Notes/drawing UI so compact mode stays icon-only
 - an active **Notes** manager with screenshot thumbnails, inline note editing/saving, and shared synchronization with the IDE panel and generated `.ai-context/`
@@ -261,8 +262,8 @@ The repository's tracked `skopeo-ui-0.1.21.vsix` has been rebuilt from the curre
 - automatic SPA route synchronization for `pushState`, `replaceState`, back/forward navigation, and hash changes
 - a **Report a Bug** action in the Skopeo panel and Command Palette that opens a structured GitHub Issue Form with Skopeo/IDE/OS details prefilled and optional screenshot or recording upload
 - a no-backend update checker for manual VSIX installs: Skopeo checks the GitHub Pages `latest.json` at most once per day and offers the direct latest VSIX or Marketplace when a newer version exists; **Skopeo: Check for Updates** forces an immediate check
-- real shadcn previews use renderer **0.1.2**, which keeps preset surfaces centered and fixes blank/off-canvas Sidebar previews in narrow Draw frames
-- the packaged 0.1.21 release baseline is **167 passing tests across 35 files** and includes the component appearance/contrast workflow plus the renderer reliability fixes described below
+- real shadcn previews use renderer **0.1.3**, adding live component interaction, iframe overscroll containment, and sandbox `Esc` return-to-edit while retaining the centered/Sidebar reliability fixes
+- the packaged 0.1.22 release baseline is **170 passing tests across 35 files** and includes live component interaction, preview-only transient-state reset, component appearance/contrast, and renderer reliability fixes
 
 You can install Skopeo directly from the **[Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui)**!
 
@@ -273,13 +274,13 @@ In VS Code:
 1. Open **Extensions**.
 2. Select the `...` menu.
 3. Choose **Install from VSIX...**.
-4. Select `skopeo-ui-0.1.21.vsix`.
+4. Select `skopeo-ui-0.1.22.vsix`.
 5. Reload VS Code when prompted.
 
 Command line:
 
 ```bash
-code --install-extension skopeo-ui-0.1.21.vsix
+code --install-extension skopeo-ui-0.1.22.vsix
 ```
 
 ## Private development and release workflow
@@ -388,10 +389,10 @@ Current source-tree automated suite:
 
 ```text
 35 test files
-166 passing tests
+170 passing tests
 ```
 
-The 0.1.21 coverage includes Draw side-panel/scroll containment, renderer-manifest validation, managed-library install/update/repair/remove, staged SHA-256 verification and rollback, managed→bundled fallback, catalog/server hot-swapping, sandboxed renderer-frame URLs/capture messaging, Provider → Category → Family → Preset browsing, exact preset placement, renderer-aware protocol validation, explicit appearance propagation, screenshot-aware Auto Contrast, reset behavior, guaranteed omission of preview-only contrast from AI implementation context, centered preset surfaces, and preview-safe Sidebar rendering.
+The packaged 0.1.22 coverage includes Draw side-panel/scroll containment, renderer-manifest validation, managed-library install/update/repair/remove, staged SHA-256 verification and rollback, managed→bundled fallback, catalog/server hot-swapping, sandboxed renderer-frame URLs/capture messaging, Provider → Category → Family → Preset browsing, exact preset placement, renderer-aware protocol validation, explicit appearance propagation, screenshot-aware Auto Contrast, reset behavior, guaranteed omission of preview-only contrast from AI implementation context, centered preset surfaces, and preview-safe Sidebar rendering. It also covers live preset interaction, placed-component Edit/Interact switching, iframe pointer/tab gating, sandbox `Esc` exit, and preview-only transient-state reset before capture.
 
 ## Security and privacy
 
