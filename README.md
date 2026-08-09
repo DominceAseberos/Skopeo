@@ -1,8 +1,8 @@
 # Skopeo (formerly Visual AI Bridge)
 
-![Version](https://img.shields.io/badge/version-0.1.18-2563eb)
+![Version](https://img.shields.io/badge/version-0.1.19-2563eb)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-135%20passing-22c55e)
+![Tests](https://img.shields.io/badge/tests-158%20passing-22c55e)
 ![Local only](https://img.shields.io/badge/data-local%20only-8b5cf6)
 ![License](https://img.shields.io/badge/license-MIT-64748b)
 
@@ -53,11 +53,11 @@ Automatic mode does not require editing the target project. Manual injection rem
 - **Notes (N)** opens the active annotation list directly in the browser, where annotation instructions can be edited and saved back to the same shared session used by the IDE panel and generated context
 - Each Notes card shows its annotation screenshot and provides **Draw**. The visual editor supports pen, arrow, rectangle, circle, text, eraser, undo, and clear while preserving editable normalized drawing actions
 - Paste one or more screenshot/reference images directly into Draw with `Ctrl+V` / `Cmd+V`; pasted references remain editable and support drag, resize, duplicate/delete, opacity, Fit, Original Size, crop, ±90° rotation, and shared bring-forward/send-backward ordering
-- **Components** opens a searchable/filterable palette with an offline Skopeo Core library plus optional shadcn/ui registry metadata. Multiple components can be placed in one annotation by click or drag-and-drop, then moved, resized, duplicated, deleted, rotated, reordered, and edited through their props
-- Component previews are safe Skopeo-rendered DOM/canvas adapters; Skopeo does not execute arbitrary downloaded React/TSX component source inside the inspected application
-- Draw uses one shared layer order for pasted references and placed components, then renders drawing markup above them. Saving preserves the original screenshot and creates a separate flattened marked-up PNG matching the intended visual composition
+- **Components** opens as a responsive side panel beside the screenshot instead of covering the Draw frame. Browse **Provider → Category → Component family → Preset/variant**. The shadcn renderer library currently exposes **61 real component families and 365 presets**, including 20 Button presets. The library card shows whether Skopeo is using the bundled fallback or a managed installation and provides **Install Library**, **Update**, **Repair**, and **Remove** actions. Managed installs live in extension global storage and never write preview-library files into the current project. Click **Add** or drag the exact preset onto the screenshot; multiple components can coexist in one annotation and remain movable, resizable, duplicable, rotatable, reorderable, and prop-editable
+- Real shadcn previews come from the separate **Skopeo Component Renderer** project, which owns the actual installed React/shadcn source and builds an isolated local renderer app. Skopeo can install a versioned prebuilt renderer package into extension global storage and hot-swap the catalog/loopback renderer without restarting the IDE; the renderer bundled in the VSIX remains an offline/migration fallback. Each preview runs in a sandboxed `allow-scripts` frame without `allow-same-origin`, so it cannot access the inspected application's DOM. The existing Skopeo DOM/canvas adapter remains only as a fallback when a renderer frame is unavailable
+- Draw uses one shared layer order for pasted references and placed components, then renders drawing markup above them. When saving, Skopeo asks each real renderer frame for a transparent PNG snapshot and uses that same rendered visual in the flattened marked-up screenshot; failed frame capture safely falls back to the local adapter instead of failing the annotation save
 - Browser success/error popups confirm annotation saves/updates, AI handoff or prompt copy, and session clearing
-- Mouse-wheel/trackpad scrolling stays inside the hovered Skopeo Notes panel or textarea, and scroll chaining into the preview page is blocked while the pointer is over the floating UI
+- Mouse-wheel/trackpad scrolling stays inside the hovered Skopeo Notes panel, textarea, Draw stage, component palette, or inspector. Scroll chaining into the underlying preview page is blocked even when an inner Draw scroller reaches its edge
 - The floating controls, annotation editor, and popups are excluded from captured screenshots and from selectable page elements
 - Automatic HTML injection through a dedicated same-machine proxy
 - Relative URL and asset behavior preserved through the proxy
@@ -245,13 +245,13 @@ Terminal placeholders `${promptPath}` and `${promptDir}` are shell-quoted automa
 
 ### Current packaged VSIX
 
-The repository's tracked `skopeo-ui-0.1.18.vsix` has been rebuilt from the current `main` branch through the canonical check → test → build → package → site-sync pipeline. The release bundle excludes local audit/log artifacts and includes the latest browser-preview workflow:
+The repository's tracked `skopeo-ui-0.1.19.vsix` has been rebuilt from the current `main` branch through the canonical check → test → build → package → site-sync pipeline. The release bundle excludes local audit/log artifacts and includes the latest browser-preview workflow:
 
 - draggable, minimizable floating **Annotate**, **Notes**, **Send**, **Copy**, and **Clear** controls inside the real browser preview; minimizing closes open Notes/drawing UI so compact mode stays icon-only
 - an active **Notes** manager with screenshot thumbnails, inline note editing/saving, and shared synchronization with the IDE panel and generated `.ai-context/`
 - a layered **Draw** editor with drawing tools, multiple pasted visual references, multiple placed UI components, editable transforms/props, shared z-order, and a flattened marked-up PNG while preserving the original screenshot
 - pasted-reference controls for opacity, Fit, Original Size, crop, rotation, duplicate/delete, drag/resize, and forward/backward ordering
-- a searchable component palette with offline **Skopeo Core** components plus optional live **shadcn/ui** registry metadata; click or drag components onto the annotation screenshot without executing third-party component source
+- a searchable component palette with offline **Skopeo Core** plus a Skopeo-managed **shadcn/ui** preview library; install/update/repair/remove operate only in extension global storage, while the official registry remains metadata fallback behavior rather than the normal preview path
 - structured AI context records exactly which annotation each component/reference belongs to and preserves provider/component identity, props, geometry, crop/opacity/rotation, source reference, and stacking order
 - wheel/trackpad scroll containment: hovered Skopeo textareas and Notes lists scroll locally without leaking scrolling into the preview page behind the floating UI
 - browser-side success/error confirmations for annotation saves/updates, AI handoff, prompt copy, and session clearing
@@ -259,7 +259,7 @@ The repository's tracked `skopeo-ui-0.1.18.vsix` has been rebuilt from the curre
 - automatic SPA route synchronization for `pushState`, `replaceState`, back/forward navigation, and hash changes
 - a **Report a Bug** action in the Skopeo panel and Command Palette that opens a structured GitHub Issue Form with Skopeo/IDE/OS details prefilled and optional screenshot or recording upload
 - a no-backend update checker for manual VSIX installs: Skopeo checks the GitHub Pages `latest.json` at most once per day and offers the direct latest VSIX or Marketplace when a newer version exists; **Skopeo: Check for Updates** forces an immediate check
-- the current validation baseline of **135 passing tests across 26 files**
+- the packaged 0.1.19 release baseline is **158 passing tests across 33 files** and includes the managed shadcn renderer-library workflow described below
 
 You can install Skopeo directly from the **[Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui)**!
 
@@ -270,13 +270,13 @@ In VS Code:
 1. Open **Extensions**.
 2. Select the `...` menu.
 3. Choose **Install from VSIX...**.
-4. Select `skopeo-ui-0.1.18.vsix`.
+4. Select `skopeo-ui-0.1.19.vsix`.
 5. Reload VS Code when prompted.
 
 Command line:
 
 ```bash
-code --install-extension skopeo-ui-0.1.18.vsix
+code --install-extension skopeo-ui-0.1.19.vsix
 ```
 
 ## Private development and release workflow
@@ -320,7 +320,7 @@ git push
 npm run public:publish
 ```
 
-`npm run public:publish` clones the public repository into a temporary directory and copies only the approved distribution material: `docs/`, `CHANGELOG.md`, public icons, GitHub issue templates, and the current versioned VSIX. It intentionally does **not** copy `src/`, `test/`, `scripts/`, `package.json`, TypeScript/build configuration, or other private development files.
+`npm run public:publish` clones the public repository into a temporary directory and copies only the approved distribution material: `README.md`, `CHANGELOG.md`, `docs/`, public icons, GitHub issue templates, and the current versioned VSIX. It intentionally does **not** copy `src/`, `test/`, `scripts/`, `package.json`, TypeScript/build configuration, or other private development files.
 
 After `public:publish` pushes the distribution commit, GitHub Pages rebuilds the public website automatically and the stable `docs/downloads/skopeo-ui-latest.vsix` URL serves the newly packaged version.
 
@@ -353,16 +353,42 @@ The clone command requires GitHub access to the private repository.
 4. all unit and network-level compatibility tests
 5. extension, webview, and runtime builds
 6. an esbuild metadata audit that rejects unexpected external packages
-7. VSIX packaging with `--no-dependencies`
+7. versioned shadcn renderer-library artifact + SHA-256 metadata generation
+8. VSIX packaging with `--no-dependencies`
+9. stable website VSIX synchronization
 
 The extension bundle includes its runtime dependencies, including `http-proxy-3` and the viewport screenshot implementation based on `html2canvas`; only the host IDE/VS Code APIs, Node built-ins, and optional `ws` native accelerators may remain external.
 
-Current automated suite:
+### Real component renderer workflow
+
+The separate local project `C:\Projects\Skopeo-Component-Renderer` is the source of truth for real shadcn previews. It installs the actual shadcn component source, generates **61 family descriptors and 365 curated presets**, validates that every generated family has a renderer, and builds a standalone gallery/frame application.
+
+Refresh and sync it with:
+
+```bash
+# in Skopeo-Component-Renderer
+npx shadcn@latest add --all -y
+npm run check
+npm run build
+
+# in Skopeo-Source
+npm run renderer:sync
+npm run renderer:package
+npm run check
+npm run test:unit
+npm run build
+```
+
+`renderer:sync` copies only the renderer project's compiled `dist/` snapshot into `vendor/component-renderer/`. Skopeo's own build copies that snapshot to `dist/component-renderer/`; `vendor/**` is excluded from the VSIX so the compiled renderer is packaged once without shipping the renderer project's source or `node_modules`.
+
+Current source-tree automated suite:
 
 ```text
-26 test files
-135 passing tests
+33 test files
+158 passing tests
 ```
+
+The 0.1.19 coverage includes Draw side-panel/scroll containment, renderer-manifest validation, managed-library install/update/repair/remove, staged SHA-256 verification and rollback, managed→bundled fallback, catalog/server hot-swapping, sandboxed renderer-frame URLs/capture messaging, Provider → Category → Family → Preset browsing, exact preset placement, renderer-aware protocol validation, and AI-context serialization of preset/version identity.
 
 ## Security and privacy
 
@@ -380,7 +406,7 @@ Current automated suite:
 - Form values, editable text, scripts, styles, inline event handlers, and bridge UI are removed from captured HTML.
 - Screenshots are limited to 4 MB and full messages to 40 MB.
 - No Visual AI Bridge cloud service receives the captured data.
-- Skopeo Core components require no network access. Opening the optional shadcn/ui catalog fetches public component metadata from the official shadcn registry through the extension host; annotation text, screenshots, DOM/CSS context, and workspace source are not sent with that request.
+- The shadcn preview library is separate from the user workspace. **Install Library**, **Update**, and **Repair** download only Skopeo's versioned prebuilt renderer package into extension global storage. The extension requires the approved Skopeo download path, checks the package byte limit and SHA-256, verifies every file hash and safe relative path, validates the renderer manifest/counts, stages the installation, and atomically activates it with rollback. **Remove** deletes only the managed extension-storage copy and falls back to the bundled renderer. Annotation text, screenshots, DOM/CSS context, and workspace source are never sent with library downloads or registry fallback requests.
 
 ## Known limitations
 

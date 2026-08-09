@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "providerId": "shadcn",
+  "rendererVersion": "0.1.0",
+  "packageUrl": "https://raw.githubusercontent.com/DominceAseberos/Skopeo/main/docs/downloads/component-renderer-0.1.0.skopeo-library.json",
+  "packageSha256": "87399ac13ca6950609dd195243725db379c3fc25b3232bddee97d1816fc5cda6",
+  "packageBytes": 2749130,
+  "families": 61,
+  "presets": 365
+}

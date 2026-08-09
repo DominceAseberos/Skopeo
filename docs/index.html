@@ -1587,9 +1587,13 @@
               <h3>Build visual specifications</h3>
               <p>
                 Draw with pen, arrows, shapes, text, and eraser tools; paste reference
-                screenshots with crop, opacity, rotation, and layer controls; or drag
-                searchable Skopeo Core and shadcn/ui component references into place.
-                Skopeo keeps the original screenshot and saves a separate marked-up PNG.
+                screenshots with crop, opacity, rotation, and layer controls; or browse
+                Provider → Category → Component → Preset in a side panel beside the
+                screenshot. The shadcn/ui renderer library currently provides 61 real
+                families and 365 presets. Install, update, repair, or remove the managed
+                preview library from Skopeo without adding preview files to your
+                project; real presets render locally in isolated sandbox frames and can
+                be dragged into place while Draw scrolling stays inside the editor.
               </p>
             </article>
             <article class="card">
@@ -1623,9 +1627,12 @@
               <p>
                 Skopeo binds its bridge to loopback, writes generated context inside
                 your project, and does not require a hosted Skopeo backend, account,
-                analytics service, or paid API. Optional shadcn/ui catalog lookups fetch
-                component metadata only; your annotations, screenshots, and source
-                context are not sent to the registry.
+                analytics service, or paid API. Optional shadcn/ui library installation
+                downloads a versioned Skopeo-built renderer into extension-owned global
+                storage, verifies package and file hashes, and atomically activates it;
+                removing it falls back to the renderer bundled with Skopeo. Your
+                annotations, screenshots, DOM/CSS context, and workspace source are
+                never sent with library downloads or registry fallback requests.
               </p>
             </div>
             <div class="terminal" aria-label="Example generated files">
