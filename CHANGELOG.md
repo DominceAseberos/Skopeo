@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.1.24-beta.2 - 2026-08-10
+
+- Fixed the Skopeo panel **Annotate** toggle so stale canonical snapshots cannot immediately undo a user toggle. Inactive Annotate is now visually neutral, active mode is clearly labeled **Annotating**, and the button exposes correct `aria-pressed` state.
+- Fixed the preview URL editor so session snapshots and old `runtime.locationChanged` events no longer overwrite a URL while the user is typing or while a newly requested preview is still connecting. Pressing `Escape` intentionally restores the canonical URL.
+- Stabilized the **No annotations yet** view by avoiding redundant annotation-list DOM rebuilds for unrelated session updates and using a flex-stable empty layout. Added regression coverage for all three panel races; the source-tree suite now passes **253 / 253 tests**.
+
 ## 0.1.24-beta.1 - 2026-08-10
 
 - Added **Agent Eyes / Bidirectional MCP** with an authenticated loopback Streamable HTTP endpoint, Off / Inspect / Collaborate permission modes, and a 19-tool surface for accepted annotation/Draw context, live selector inspection, persistent Agent inspection pins, human review, component/markup proposals, and visual snapshot verification.

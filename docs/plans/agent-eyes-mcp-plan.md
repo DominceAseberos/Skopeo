@@ -1,7 +1,7 @@
 # Skopeo Agent Eyes / Bidirectional MCP Implementation Plan
 
-> Status: Implemented and closure-validated in Skopeo 0.1.24-beta.1
-> Baseline: Skopeo 0.1.24-beta.1
+> Status: Implemented and closure-validated in Skopeo 0.1.24-beta.2
+> Baseline: Skopeo 0.1.24-beta.2
 > Last updated: 2026-08-10
 > Scope: Extension-host control plane, agent-driven browser inspection, MCP exposure, human review, and agent visual proposals.
 
@@ -609,9 +609,9 @@ src/webview/stateManager.ts               reduce canonical ownership
 test/unit/                                new control-plane/broker/MCP/review tests
 ```
 
-## 19.1 Implemented 0.1.24-beta.1 status
+## 19.1 Implemented 0.1.24-beta.2 status
 
-Agent Eyes / Bidirectional MCP is implemented in the 0.1.24-beta.1 source tree. The interoperable MCP surface now contains **19 tools**:
+Agent Eyes / Bidirectional MCP is implemented in the 0.1.24-beta.2 source tree. The interoperable MCP surface now contains **19 tools**:
 
 - `skopeo_status`, `list_annotations`, `get_annotation`
 - `get_markup_spec`, `get_markup_png`
@@ -703,7 +703,7 @@ The feature concept is **Agent Eyes / Live Agent Inspection**:
 
 MCP is the interoperable transport that makes this available to compatible coding agents; the differentiator is the bidirectional visual workflow.
 
-## 24. 0.1.24-beta.1 closure audit
+## 24. 0.1.24-beta.2 closure audit
 
 The original phase checklists are now fully closed against the implemented source tree and automated coverage. The final closure pass added the Skopeo-panel Agent Eyes status/control card, explicit concurrent/out-of-order/unknown-response BrowserCommandBroker tests, full SessionStore composition/replacement/clear mutation coverage, Agent Eyes status-message validation, and MCP schema-boundary rejection tests.
 

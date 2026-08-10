@@ -4,7 +4,7 @@ This directory contains detailed implementation plans for major features that ar
 
 | Plan                                                       | Status   | Baseline             | Next milestone                                                            |
 | ---------------------------------------------------------- | -------- | -------------------- | ------------------------------------------------------------------------- |
-| [Agent Eyes / Bidirectional MCP](./agent-eyes-mcp-plan.md) | Complete | Skopeo 0.1.24-beta.1 | Closure-validated; no remaining Agent Eyes implementation checklist items |
+| [Agent Eyes / Bidirectional MCP](./agent-eyes-mcp-plan.md) | Complete | Skopeo 0.1.24-beta.2 | Closure-validated; no remaining Agent Eyes implementation checklist items |
 
 ## Planning rule
 
