@@ -6,7 +6,7 @@
 ![Local only](https://img.shields.io/badge/data-local%20only-8b5cf6)
 ![License](https://img.shields.io/badge/license-MIT-64748b)
 
-> **Demo:** _(Add a `media/demo.gif` here showing Skopeo in action!)_
+
 
 **Skopeo is a local extension for VS Code and compatible VS Code-based IDEs that visually annotates elements in a real browser and generates structured UI context for an AI coding agent.**
 
