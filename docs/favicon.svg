@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <style>
+    .skopeo-mark { fill: #111111; }
+    @media (prefers-color-scheme: dark) {
+      .skopeo-mark { fill: #ffffff; }
+    }
+  </style>
+  <g class="skopeo-mark">
+    <path d="M1 7V1h6v1.5H2.5V7H1Zm22 0V1h-6v1.5h4.5V7H23ZM1 17v6h6v-1.5H2.5V17H1Zm22 0v6h-6v-1.5h4.5V17H23Z" />
+    <path
+      fill-rule="evenodd"
+      d="M7 12c1.25-1.875 3.05-3.75 5-3.75s3.75 1.875 5 3.75c-1.25 1.875-3.05 3.75-5 3.75S8.25 13.875 7 12Zm5-2.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z"
+      clip-rule="evenodd"
+    />
+    <circle cx="4.5" cy="12" r="1.5" />
+    <circle cx="19.5" cy="12" r="1.5" />
+    <path d="M4.5 11.25h3.8v1.5H4.5v-1.5Zm11.2 0h3.8v1.5h-3.8v-1.5Z" />
+  </g>
+</svg>
