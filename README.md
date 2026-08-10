@@ -1,8 +1,8 @@
 # Skopeo (formerly Visual AI Bridge)
 
-![Version](https://img.shields.io/badge/version-0.1.24--beta.1-f59e0b)
+![Version](https://img.shields.io/badge/version-0.1.24--beta.3-f59e0b)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-253%20passing-22c55e)
+![Tests](https://img.shields.io/badge/tests-255%20passing-22c55e)
 ![Local only](https://img.shields.io/badge/data-local%20only-8b5cf6)
 ![License](https://img.shields.io/badge/license-MIT-64748b)
 
@@ -83,7 +83,7 @@ Automatic mode does not require editing the target project. Manual injection rem
 
 ### Agent Eyes / Bidirectional MCP
 
-Skopeo 0.1.24-beta.2 includes a local authenticated **Agent Eyes** MCP endpoint for bidirectional browser-agent collaboration. It is separate from normal human annotations and never converts an agent observation or pending proposal into `.ai-context/` implementation intent without human acceptance.
+Skopeo 0.1.24-beta.3 includes a local authenticated **Agent Eyes** MCP endpoint for bidirectional browser-agent collaboration. It is separate from normal human annotations and never converts an agent observation or pending proposal into `.ai-context/` implementation intent without human acceptance.
 
 - The MCP endpoint binds to loopback only and uses a persisted extension-secret bearer token.
 - The Skopeo panel now shows an **Agent Eyes** status card with endpoint state, collaboration mode, and the loopback URL. **Copy Connection** copies the authenticated connection object only on explicit user action; the bearer token is never displayed in the panel.
@@ -288,7 +288,7 @@ Terminal placeholders `${promptPath}` and `${promptDir}` are shell-quoted automa
 
 ### Current beta VSIX
 
-The current feature build is `skopeo-ui-0.1.24-beta.2.vsix`, built through the canonical **check -> test -> build -> renderer package -> VSIX package -> site sync** pipeline. **Stable remains 0.1.23** until the beta is promoted. The release bundle excludes local audit/log artifacts and includes the latest browser-preview workflow:
+The current feature build is `skopeo-ui-0.1.24-beta.3.vsix`, built through the canonical **check -> test -> build -> renderer package -> VSIX package -> site sync** pipeline. **Stable remains 0.1.23** until the beta is promoted. The release bundle excludes local audit/log artifacts and includes the latest browser-preview workflow:
 
 - draggable, minimizable floating **Annotate**, **Notes**, **Send**, **Copy**, and **Clear** controls inside the real browser preview; minimizing closes open Notes/drawing UI so compact mode stays icon-only
 - an active **Notes** manager with screenshot thumbnails, inline note editing/saving, and shared synchronization with the IDE panel and generated `.ai-context/`
@@ -304,7 +304,7 @@ The current feature build is `skopeo-ui-0.1.24-beta.2.vsix`, built through the c
 - a **Report a Bug** action in the Skopeo panel and Command Palette that opens a structured GitHub Issue Form with Skopeo/IDE/OS details prefilled and optional screenshot or recording upload
 - a no-backend update checker for manual VSIX installs with separate **stable** (`latest.json`) and opt-in **beta** (`beta-latest.json`) channels; **Skopeo: Check for Updates** checks the selected channel immediately
 - real shadcn previews use renderer **0.1.3** and Mantine previews use renderer **0.1.0** with **20 families / 61 presets**; both support live interaction, iframe overscroll containment, sandbox `Esc` return-to-edit, and provider-scoped hot-swapping
-- the packaged **0.1.24-beta.2** beta baseline is **253 passing tests across 59 unit-test files** and includes Agent Eyes / Bidirectional MCP, persistent inspection/review collaboration, visual proposals/verification, the modern Skopeo sidebar, responsive Draw/Layers management, multi-provider managed libraries, warning badges, live component interaction, preview-only transient-state reset, and component appearance/contrast
+- the packaged **0.1.24-beta.3** beta baseline is **255 passing tests across 59 unit-test files** and includes Agent Eyes / Bidirectional MCP, persistent inspection/review collaboration, visual proposals/verification, the modern Skopeo sidebar, responsive Draw/Layers management, multi-provider managed libraries, warning badges, live component interaction, preview-only transient-state reset, and component appearance/contrast
 
 For the proven build, install the **stable 0.1.23** release from the **[Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui)** or the stable VSIX channel. To test the new Agent Eyes/UI work, install the beta VSIX below and set `visualAIBridge.updateChannel` to `beta`.
 
@@ -315,13 +315,13 @@ In VS Code:
 1. Open **Extensions**.
 2. Select the `...` menu.
 3. Choose **Install from VSIX...**.
-4. Select `skopeo-ui-0.1.24-beta.2.vsix`.
+4. Select `skopeo-ui-0.1.24-beta.3.vsix`.
 5. Reload VS Code when prompted.
 
 Command line:
 
 ```bash
-code --install-extension skopeo-ui-0.1.24-beta.2.vsix
+code --install-extension skopeo-ui-0.1.24-beta.3.vsix
 ```
 
 ## Private development and release workflow
@@ -430,10 +430,10 @@ Current source-tree automated suite:
 
 ```text
 59 unit-test files
-253 passing tests
+255 passing tests
 ```
 
-The packaged **0.1.24-beta.2** coverage includes the Agent Eyes MCP handshake/auth/tool schemas, extension-host session/control-plane state, request correlation/timeouts, live selector inspection, persistent Agent pins, review/question flows, component and markup proposal intent boundaries, visual snapshot verification, modern Skopeo webview UI, responsive Draw/Layers behavior, renderer-manifest validation, managed-library install/update/repair/remove, staged SHA-256 verification and rollback, managed-to-bundled fallback, sandboxed real-component interaction, provider-aware catalog browsing, explicit appearance propagation, screenshot-aware Auto Contrast, and preview-only transient-state reset before capture.
+The packaged **0.1.24-beta.3** coverage includes the Agent Eyes MCP handshake/auth/tool schemas, extension-host session/control-plane state, request correlation/timeouts, live selector inspection, persistent Agent pins, review/question flows, component and markup proposal intent boundaries, visual snapshot verification, modern Skopeo webview UI, responsive Draw/Layers behavior, renderer-manifest validation, managed-library install/update/repair/remove, staged SHA-256 verification and rollback, managed-to-bundled fallback, sandboxed real-component interaction, provider-aware catalog browsing, explicit appearance propagation, screenshot-aware Auto Contrast, and preview-only transient-state reset before capture.
 
 ## Security and privacy
 

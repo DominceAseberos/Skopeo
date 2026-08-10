@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 0.1.24-beta.3 - 2026-08-10
+
+- Fixed a runtime/webview annotation restore feedback loop that repeatedly rebuilt browser-side Notes UI. Focused annotation textareas now keep focus and unsaved typing instead of being replaced underneath the user, including desktop and touch/tablet interaction paths.
+- Added duplicate annotation-sync suppression in the floating browser toolbar and regression coverage so unchanged runtime state cannot destroy the active Notes editor.
+- Stabilized the IDE sidebar annotation area by reserving space for annotation-mode/status help text, preventing the empty annotation state, populated list, and footer from jumping as status messages appear or disappear.
+- Made the floating preview **Annotate / Annotating** status update optimistically on tap/click instead of waiting for the full runtime/webview/extension synchronization round trip; canonical runtime state still confirms the final value.
+- Replaced the placeholder **S** badge in the Skopeo Preview panel with the actual Skopeo eye/framing logo reused from the extension and public docs branding.
+
 ## 0.1.24-beta.2 - 2026-08-10
 
 - Fixed the Skopeo panel **Annotate** toggle so stale canonical snapshots cannot immediately undo a user toggle. Inactive Annotate is now visually neutral, active mode is clearly labeled **Annotating**, and the button exposes correct `aria-pressed` state.
