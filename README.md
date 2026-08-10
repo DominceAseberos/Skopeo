@@ -1,37 +1,45 @@
-# What is Skopeo?
+# Skopeo
+
+![VS Code Extension](https://img.shields.io/badge/VS%20Code-Extension-007ACC?logo=visualstudiocode\&logoColor=white)
+![Visual Annotation](https://img.shields.io/badge/Visual-Annotation-8B5CF6)
+![AI Coding Agents](https://img.shields.io/badge/AI-Coding%20Agents-111827)
+![Browser Preview](https://img.shields.io/badge/Browser-Live%20Preview-22C55E)
+![Local First](https://img.shields.io/badge/Local-First-F59E0B)
+![Privacy](https://img.shields.io/badge/Privacy-Local%20Data-64748B)
+![License](https://img.shields.io/badge/License-MIT-blue)
 
 **Skopeo is a visual collaboration tool for developers and AI coding agents.**
 
 It lets you open your web application, visually select the exact parts of the interface you want changed, and describe what you want directly on the page.
 
-Instead of explaining things like:
+Instead of trying to explain:
 
-“Change the card somewhere on the dashboard.”
+> “Change the card somewhere on the dashboard.”
 
-you can simply point to the actual card, annotate it, add notes or drawings, attach visual references, and send that intent to your coding agent.
+you can point directly to the actual element, annotate it, add notes or drawings, attach visual references, and send that intent to your coding agent.
 
 Skopeo helps remove the communication gap between **what you see in the browser** and **what your AI coding agent needs to understand**.
 
-With Skopeo, you can:
+## What you can do
 
-* Point at an element and describe the change you want.
-* Create multiple visual annotations across a page.
-* Draw directly over screenshots to explain an idea.
-* Paste reference images or design inspiration.
-* Place UI components visually to demonstrate what you want.
-* Preview and interact with UI components before choosing them.
-* Review annotations and edit instructions from the browser.
-* Send the collected visual context to a supported AI coding agent.
-* Let an AI coding agent inspect the running interface through **Agent Eyes**.
-* Allow the agent to ask questions or propose visual changes for you to review.
-* Compare the interface before and after changes.
+* 🎯 **Point to UI elements** and describe exactly what should change.
+* 📝 **Create visual annotations** directly on your running application.
+* ✏️ **Draw over screenshots** to explain layouts, positioning, or design ideas.
+* 🖼️ **Add visual references** and inspiration.
+* 🧩 **Place UI components visually** to demonstrate the result you want.
+* 🖱️ **Preview and interact with components** before choosing them.
+* 📋 **Review and edit annotations** from the browser.
+* 🤖 **Send visual context to AI coding agents.**
+* 👁️ **Give coding agents visual awareness with Agent Eyes.**
+* 💬 **Review questions and visual proposals from your agent.**
+* 🔍 **Compare your interface before and after changes.**
 
-The idea is simple:
+## The idea
 
-**See it → point at it → explain it → send it to your AI agent.**
+**See it → Point at it → Explain it → Send it to your AI agent.**
 
-Skopeo acts as the visual communication layer between the developer, the running application, and the AI coding agent.
+Skopeo acts as the **visual communication layer** between the developer, the running application, and the AI coding agent.
 
-It is not another coding agent.
+### Skopeo is not another coding agent.
 
-It gives your existing coding agent **eyes and visual context**, so you spend less time trying to describe UI problems with words alone.
+It gives the coding agents you already use **eyes and visual context**, so you spend less time trying to describe UI problems with words alone.
