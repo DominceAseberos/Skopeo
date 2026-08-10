@@ -4,6 +4,13 @@ Public release notes for Skopeo. Detailed engineering history is maintained in t
 
 ## Unreleased
 
+## 0.1.24 - 2026-08-11
+
+- Promoted the current Skopeo visual workflow to stable: the modern compact sidebar, browser annotation controls, responsive Draw workspace, Layers / Added Items, pasted references, and improved interaction/focus behavior.
+- Stable now includes the current shadcn/ui and Mantine component-preview workflow, separate Components / Libraries workspaces, library maintenance states, real component interaction, and appearance/contrast controls.
+- Kept the stable edition focused on the one-way developer-to-agent workflow: **Agent Eyes / Bidirectional MCP is not included in stable 0.1.24 and remains beta-only.**
+- Added explicit stable/beta release packaging so both editions share the same current Skopeo base without maintaining separate codebases.
+
 ## 0.1.24-beta.4 - 2026-08-11
 
 - Agent Eye now opens a local status page instead of copying an endpoint URL from the inline action. Full MCP client configuration remains a separate explicit command.
@@ -13,6 +20,8 @@ Public release notes for Skopeo. Detailed engineering history is maintained in t
 - The component toolbox now separates **Components** and **Libraries** into focused workspaces, with library update/error attention states.
 - Clarified compatibility: the Skopeo extension UI targets VS Code and compatible VS Code-based IDEs; external MCP-compatible agents can connect through Agent Eyes.
 - Refined public documentation to focus on product capabilities while keeping implementation and architecture documentation private.
+- Added Skopeo-originated task activity callbacks in beta so compatible agents can report working/verifying/completion state back to Skopeo without turning telemetry into human review items.
+- On beta task completion, Skopeo re-checks annotated browser targets and temporarily highlights targets whose rendered DOM/style/geometry signals changed.
 
 ## 0.1.24-beta.3 - 2026-08-10
 

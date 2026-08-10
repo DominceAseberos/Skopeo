@@ -26,10 +26,9 @@ Skopeo is not another coding agent. It gives the coding agents you already use a
 - Manage overlapping visual items from Layers / Added Items.
 - Review and edit active annotations from the browser.
 - Send structured visual context to a coding agent.
-- Give MCP-compatible coding agents live browser awareness with Agent Eyes.
-- Receive questions, inspection pins, component proposals, and markup proposals from an agent.
-- Keep agent proposals pending until a developer explicitly reviews them.
-- Capture and compare rendered interface state before and after changes.
+- Use the stable visual annotation, Draw, component, and AI-handoff workflow without experimental bidirectional features.
+- Opt into the beta channel for Agent Eyes, where MCP-compatible coding agents can inspect the live browser and collaborate back through Skopeo.
+- In beta, receive agent questions, inspection pins, component/markup proposals, task activity, and rendered-change verification.
 
 ## The idea
 
@@ -61,9 +60,15 @@ The component toolbox separates **Components** from **Libraries**, so browsing U
 
 Libraries are managed by Skopeo for preview use. Installing or updating a preview library does not add that library to the inspected application.
 
-## Agent Eyes
+## Stable and beta editions
 
-Agent Eyes gives MCP-compatible coding agents access to Skopeo's visual collaboration surface.
+**Stable Skopeo** contains the current annotation, Notes, Draw, pasted references, component libraries, browser preview, and AI handoff workflow. Agent Eyes / Bidirectional MCP is intentionally not included in the stable build.
+
+**Skopeo Beta** uses the same product base and additionally enables Agent Eyes / Bidirectional MCP for testing and iteration.
+
+## Agent Eyes (beta)
+
+Agent Eyes is a **beta-only** capability that gives MCP-compatible coding agents access to Skopeo's visual collaboration surface.
 
 Depending on the selected collaboration mode, an agent can:
 
@@ -73,7 +78,9 @@ Depending on the selected collaboration mode, an agent can:
 - place persistent inspection pins;
 - ask the developer a question in the browser;
 - propose a component or markup change for review;
-- capture and compare rendered visual snapshots.
+- capture and compare rendered visual snapshots;
+- return working/verifying/completion activity to Skopeo after a Skopeo-originated task;
+- let Skopeo highlight annotated targets whose rendered output changed after completion.
 
 Agent observations and pending proposals remain separate from accepted human annotation intent until the developer explicitly accepts them. Inspect and Collaborate modes can be switched in place from Skopeo without navigating away from the inspected app, and pending visual proposals can be hidden temporarily without being accepted or rejected.
 
