@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+## 0.1.24-beta.1 - 2026-08-10
+
+- Added **Agent Eyes / Bidirectional MCP** with an authenticated loopback Streamable HTTP endpoint, Off / Inspect / Collaborate permission modes, and a 19-tool surface for accepted annotation/Draw context, live selector inspection, persistent Agent inspection pins, human review, component/markup proposals, and visual snapshot verification.
+- Added extension-host `SessionStore` / `SkopeoControlPlane` ownership plus a bounded request/response `BrowserCommandBroker`, so Agent Eyes can inspect the live browser without depending on the Skopeo panel being open and without turning temporary agent observations into human implementation intent.
+- Added zero-based `matchIndex` for intentionally repeated selectors, persistent session-scoped Agent inspection pins, full browser review history, in-page human questions, real shadcn/Mantine component proposals, markup proposals, and before/after visual verification.
+- Modernized the **Skopeo: Preview** IDE panel with VS Code-native cards, compact preview controls, runtime/Agent Eyes status, responsive narrow-sidebar behavior, a purposeful annotation empty state, and corrected visible branding/UTF-8 copy while preserving existing `visualAIBridge.*` compatibility IDs.
+- Redesigned the annotation **Draw** editor into a responsive workspace with a compact header, primary/utility tool groups above the canvas, scroll-contained screenshot stage, responsive component palette, touch-friendlier inspector dock, and always-reachable Cancel / Save Drawing actions.
+- Added **Layers / Added Items** in Draw. It lists every placed component and pasted reference with explicit select/delete controls, making overlapping or hard-to-click objects manageable without hunting on the canvas.
+- Documented and regression-tested typing-safe **Delete / Backspace** removal for selected components and pasted images; keyboard deletion remains disabled while typing/editing or interacting with a live component.
+- Expanded automated validation to **250 passing tests across 59 unit-test files**, with TypeScript, ESLint, Prettier, production build, shadcn renderer packaging, and Mantine renderer packaging remaining green.
+
 ## 0.1.23 - 2026-08-10
 
 - Reworked managed component-library controls into compact icon-only **Available** and **Installed** tabs. Installed libraries are removed from the Available view, successful installs switch directly to Installed, and a warning badge appears on the relevant tab when an install fails or an installed library has an update available.

@@ -1,8 +1,8 @@
 # Skopeo (formerly Visual AI Bridge)
 
-![Version](https://img.shields.io/badge/version-0.1.23-2563eb)
+![Version](https://img.shields.io/badge/version-0.1.24--beta.1-f59e0b)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-178%20passing-22c55e)
+![Tests](https://img.shields.io/badge/tests-250%20passing-22c55e)
 ![Local only](https://img.shields.io/badge/data-local%20only-8b5cf6)
 ![License](https://img.shields.io/badge/license-MIT-64748b)
 
@@ -33,18 +33,24 @@ The original page URL stored with each annotation is reconstructed from the targ
 1. Install Skopeo from the VS Code Marketplace or install the `.vsix` in desktop VS Code / a compatible VS Code-based IDE such as Antigravity or Kiro.
 2. Open and trust the web project's local folder.
 3. Start the project's HTTP development server.
-4. Run **Visual AI Bridge: Start**.
+4. Run **Skopeo: Start**.
 5. Enter the localhost URL and select **Open in Browser**. Full routes such as `localhost:4321/admin/dashboard?tab=users#active` are supported and preserved.
 6. Select **Annotate**, click an element, and enter the requested change.
 7. Select **Send to AI** to generate `.ai-context/`. In `chat` mode Skopeo submits directly when a configured or detected IDE agent command works; otherwise it keeps the generated context and copies the same handoff instruction to the clipboard as a safe fallback.
 8. Or select **Copy Prompt** to generate the same context and copy the handoff instruction for manual pasting without changing your configured agent mode.
 9. The browser preview also exposes floating **Annotate**, **Notes**, **Send**, **Copy**, and **Clear** controls. **Notes** shows the active annotation list and lets you edit/save instructions without returning to the IDE panel. **Draw** supports freehand markup, pasted visual references with `Ctrl+V` / `Cmd+V`, and draggable UI components from Skopeo Core or the optional shadcn/ui catalog. Drag the **Skopeo ⠿** handle to reposition the toolbar, or minimize it to icon-only controls.
 10. Use **Clear Session** when you want to remove the annotation batch and generated files.
-11. Use **Visual AI Bridge: Stop** to dispose the browser runtime, sockets, timers, overlays, pins, and local server.
+11. Use **Skopeo: Stop** to dispose the browser runtime, sockets, timers, overlays, pins, and local server.
 
 Automatic mode does not require editing the target project. Manual injection remains available for origin-sensitive applications or strict CSP development setups.
 
 ## Capabilities
+
+### Skopeo sidebar
+
+- Modern VS Code-native panel with a compact local-preview card, connection status pill, two-column action hierarchy, Agent Eyes status, annotation count, and responsive narrow-width behavior
+- User-facing branding is now consistently **Skopeo** while historical `visualAIBridge.*` command/configuration IDs remain unchanged for compatibility
+- Purposeful annotation empty state and corrected UTF-8 status copy replace the previous flat toolbar and broken mojibake text
 
 ### Browser annotation
 
@@ -52,6 +58,8 @@ Automatic mode does not require editing the target project. Manual injection rem
 - The floating toolbar can be dragged anywhere in the viewport and minimized to an icon-only mode, with its position clamped on-screen
 - **Notes (N)** opens the active annotation list directly in the browser, where annotation instructions can be edited and saved back to the same shared session used by the IDE panel and generated context
 - Each Notes card shows its annotation screenshot and provides **Draw**. The visual editor supports pen, arrow, rectangle, circle, text, eraser, undo, and clear while preserving editable normalized drawing actions
+- Draw now uses a responsive editor shell with a compact annotation header, drawing tools above the canvas, a scroll-contained screenshot workspace, a component palette that sits beside the canvas on wide screens and stacks below it on narrow screens, a responsive inspector dock, and always-reachable **Cancel / Save Drawing** actions
+- Selected placed components and pasted references can be removed with **Delete** or **Backspace** while in Select mode. Keyboard deletion is ignored while typing in an input, textarea, editable field, or live component. **Layers / Added Items** lists every placed component and pasted image so hidden, overlapping, or hard-to-click items can be selected and deleted explicitly
 - Paste one or more screenshot/reference images directly into Draw with `Ctrl+V` / `Cmd+V`; pasted references remain editable and support drag, resize, duplicate/delete, opacity, Fit, Original Size, crop, ±90° rotation, and shared bring-forward/send-backward ordering
 - **Components** opens as a responsive side panel beside the screenshot instead of covering the Draw frame. Browse **Provider → Category → Component family → Preset/variant**. Skopeo currently includes two real managed component systems: **shadcn/ui with 61 families / 365 presets** and **Mantine with 20 families / 61 presets**. Compact icon-only Available/Installed library tabs keep installed libraries out of the install list and surface update/install errors with a warning badge. Each library has independent **Install Library**, **Update**, **Repair**, and **Remove** state in extension global storage; no preview-library packages are installed into the user's project. Click **Add** or drag the exact preset onto the screenshot; multiple components from different providers can coexist in one annotation and remain movable, resizable, duplicable, rotatable, reorderable, and prop-editable
 - Selecting a placed component exposes an **Appearance** inspector. **Preview Contrast** can use Original, Auto, Light backdrop, Dark backdrop, or Outline to make a component easier to see while editing; these preview-only modes are not sent to the AI as implementation intent. Explicit **Background**, **Text**, and **Border** colors are real overrides and are saved into the visual specification. **Auto Contrast** samples the screenshot underneath the component and applies deliberate high-contrast colors, while **Reset style** clears those overrides and restores the original library preset/theme
@@ -72,6 +80,37 @@ Automatic mode does not require editing the target project. Manual injection rem
 - Pin restoration and stale-selector reporting after reload
 - Automatic route tracking for History API navigation, back/forward navigation, and hash changes
 - One active authenticated browser runtime per session
+
+### Agent Eyes / Bidirectional MCP
+
+Skopeo 0.1.24-beta.1 includes a local authenticated **Agent Eyes** MCP endpoint for bidirectional browser-agent collaboration. It is separate from normal human annotations and never converts an agent observation or pending proposal into `.ai-context/` implementation intent without human acceptance.
+
+- The MCP endpoint binds to loopback only and uses a persisted extension-secret bearer token.
+- The Skopeo panel now shows an **Agent Eyes** status card with endpoint state, collaboration mode, and the loopback URL. **Copy Connection** copies the authenticated connection object only on explicit user action; the bearer token is never displayed in the panel.
+- Collaboration modes are **Off**, **Inspect**, and **Collaborate**. Inspect enables read-only live browser inspection; Collaborate additionally enables persistent Agent inspection pins, human questions, and component/markup proposals.
+- The MCP surface contains **19 tools** covering status/annotations, Draw markup, component catalogs, live selector inspection with optional zero-based `matchIndex`, persistent inspection pins, human review, component/markup proposals, and before/after visual verification.
+- `inspect_selector` is ephemeral by default. `pin_selector` creates a distinct session-scoped `?` Agent pin that remains separate from numbered human annotation pins and can be listed or removed by either side.
+- The browser floating toolbar includes a bounded full Agent review-history panel. Pending questions can be opened at their exact target; answered/accepted/rejected history remains visible without becoming human implementation intent.
+- Visual verification supports bounded snapshots plus geometry, visible-text, computed-style, and opening-tag change signals while leaving final semantic pass/fail judgment to the coding agent.
+
+#### Agent Eyes MCP setup
+
+1. Keep `visualAIBridge.mcpEnabled` enabled (default) and choose `visualAIBridge.agentCollaboration` as `off`, `inspect`, or `collaborate`.
+2. Open the Skopeo panel and confirm the Agent Eyes card reports **Running**.
+3. Select **Copy Connection**, or run **Skopeo: Copy Agent Eyes MCP Connection** from the Command Palette.
+4. Paste the copied Streamable HTTP connection object into an MCP-compatible coding agent/client. The object contains the loopback MCP URL and its `Authorization: Bearer ?` header.
+5. Keep the token local. If it is ever exposed, reinstall/reset the extension secret rather than committing the copied connection object to a repository.
+
+The copied object has this shape (token intentionally omitted here):
+
+```json
+{
+  "url": "http://127.0.0.1:43120/mcp",
+  "headers": {
+    "Authorization": "Bearer <local-secret>"
+  }
+}
+```
 
 ### Context generation
 
@@ -143,7 +182,7 @@ These checks validate the proxy protocol and development-server patterns. Hands-
 
 ## Automatic mode and origin behavior
 
-The browser-visible automatic URL uses the Visual AI Bridge proxy origin. Most applications based on relative URLs work normally, but origin-sensitive behavior can differ because browser storage and security boundaries use the proxy origin.
+The browser-visible automatic URL uses the Skopeo proxy origin. Most applications based on relative URLs work normally, but origin-sensitive behavior can differ because browser storage and security boundaries use the proxy origin.
 
 Potentially affected features include:
 
@@ -178,18 +217,18 @@ The development CSP must also allow the bridge WebSocket in `connect-src`, for e
 Manual fallback workflow:
 
 1. Add the script only to the development build.
-2. Enter the original target URL in the Visual AI Bridge panel and select **Open in Browser** once so the bridge configures that exact target origin and creates a fresh token.
+2. Enter the original target URL in the Skopeo panel and select **Open in Browser** once so the bridge configures that exact target origin and creates a fresh token.
 3. If automatic injection displays the CSP diagnostic page, open the original target URL directly.
 4. The target page loads `/runtime.js` from the bridge; the server supplies the token from the external script response.
 5. Remove the development-only integration before production.
 
-Visual AI Bridge does not remove or relax the target site's CSP. If the policy does not allow the injected same-origin external script, automatic mode returns a clear diagnostic page with manual-mode instructions.
+Skopeo does not remove or relax the target site's CSP. If the policy does not allow the injected same-origin external script, automatic mode returns a clear diagnostic page with manual-mode instructions.
 
 ## Complete workflow
 
 1. Open the source folder in desktop VS Code.
 2. Start the application's development server.
-3. Run **Visual AI Bridge: Start** or open the Visual AI Bridge Activity Bar view.
+3. Run **Skopeo: Start** or open the Skopeo Activity Bar view.
 4. Enter the complete local page URL.
 5. Select **Open in Browser**.
 6. Wait for **Runtime connected**.
@@ -240,14 +279,16 @@ Atomic generation may temporarily use:
 | `visualAIBridge.chatCommand`     | _(empty)_                        | Optional IDE command ID tried before built-in agent commands                  |
 | `visualAIBridge.terminalCommand` | `aider --read ${promptPath} ...` | Visible terminal command template                                             |
 | `visualAIBridge.htmlLimit`       | `500`                            | Maximum sanitized HTML characters per annotation                              |
+| `visualAIBridge.checkForUpdates` | `true`                           | Check the selected manual VSIX update channel at most once per day            |
+| `visualAIBridge.updateChannel`   | `stable`                         | `stable` keeps proven releases; `beta` opts into prerelease VSIX builds       |
 
 Terminal placeholders `${promptPath}` and `${promptDir}` are shell-quoted automatically for Windows and POSIX shells. If the preferred runtime port is already occupied, Skopeo currently tries subsequent loopback ports; manual-injection URLs and health checks must use the port the extension actually started.
 
 ## Install
 
-### Current packaged VSIX
+### Current beta VSIX
 
-The repository's tracked `skopeo-ui-0.1.23.vsix` has been rebuilt from the current `main` branch through the canonical check → test → build → package → site-sync pipeline. The release bundle excludes local audit/log artifacts and includes the latest browser-preview workflow:
+The current feature build is `skopeo-ui-0.1.24-beta.1.vsix`, built through the canonical **check -> test -> build -> renderer package -> VSIX package -> site sync** pipeline. **Stable remains 0.1.23** until the beta is promoted. The release bundle excludes local audit/log artifacts and includes the latest browser-preview workflow:
 
 - draggable, minimizable floating **Annotate**, **Notes**, **Send**, **Copy**, and **Clear** controls inside the real browser preview; minimizing closes open Notes/drawing UI so compact mode stays icon-only
 - an active **Notes** manager with screenshot thumbnails, inline note editing/saving, and shared synchronization with the IDE panel and generated `.ai-context/`
@@ -261,11 +302,11 @@ The repository's tracked `skopeo-ui-0.1.23.vsix` has been rebuilt from the curre
 - a dedicated **Copy Prompt** action in the IDE panel
 - automatic SPA route synchronization for `pushState`, `replaceState`, back/forward navigation, and hash changes
 - a **Report a Bug** action in the Skopeo panel and Command Palette that opens a structured GitHub Issue Form with Skopeo/IDE/OS details prefilled and optional screenshot or recording upload
-- a no-backend update checker for manual VSIX installs: Skopeo checks the GitHub Pages `latest.json` at most once per day and offers the direct latest VSIX or Marketplace when a newer version exists; **Skopeo: Check for Updates** forces an immediate check
+- a no-backend update checker for manual VSIX installs with separate **stable** (`latest.json`) and opt-in **beta** (`beta-latest.json`) channels; **Skopeo: Check for Updates** checks the selected channel immediately
 - real shadcn previews use renderer **0.1.3** and Mantine previews use renderer **0.1.0** with **20 families / 61 presets**; both support live interaction, iframe overscroll containment, sandbox `Esc` return-to-edit, and provider-scoped hot-swapping
-- the packaged 0.1.23 release baseline is **178 passing tests across 35 files** and includes multi-provider managed libraries, compact Available/Installed library tabs, warning badges, live component interaction, preview-only transient-state reset, and component appearance/contrast
+- the packaged **0.1.24-beta.1** beta baseline is **250 passing tests across 59 unit-test files** and includes Agent Eyes / Bidirectional MCP, persistent inspection/review collaboration, visual proposals/verification, the modern Skopeo sidebar, responsive Draw/Layers management, multi-provider managed libraries, warning badges, live component interaction, preview-only transient-state reset, and component appearance/contrast
 
-You can install Skopeo directly from the **[Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui)**!
+For the proven build, install the **stable 0.1.23** release from the **[Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui)** or the stable VSIX channel. To test the new Agent Eyes/UI work, install the beta VSIX below and set `visualAIBridge.updateChannel` to `beta`.
 
 Alternatively, if you want to install it from the `.vsix` source:
 
@@ -274,13 +315,13 @@ In VS Code:
 1. Open **Extensions**.
 2. Select the `...` menu.
 3. Choose **Install from VSIX...**.
-4. Select `skopeo-ui-0.1.23.vsix`.
+4. Select `skopeo-ui-0.1.24-beta.1.vsix`.
 5. Reload VS Code when prompted.
 
 Command line:
 
 ```bash
-code --install-extension skopeo-ui-0.1.23.vsix
+code --install-extension skopeo-ui-0.1.24-beta.1.vsix
 ```
 
 ## Private development and release workflow
@@ -388,11 +429,11 @@ npm run build
 Current source-tree automated suite:
 
 ```text
-35 test files
-170 passing tests
+59 unit-test files
+250 passing tests
 ```
 
-The packaged 0.1.23 coverage includes Draw side-panel/scroll containment, renderer-manifest validation, managed-library install/update/repair/remove, staged SHA-256 verification and rollback, managed→bundled fallback, catalog/server hot-swapping, sandboxed renderer-frame URLs/capture messaging, Provider → Category → Family → Preset browsing, exact preset placement, renderer-aware protocol validation, explicit appearance propagation, screenshot-aware Auto Contrast, reset behavior, guaranteed omission of preview-only contrast from AI implementation context, centered preset surfaces, and preview-safe Sidebar rendering. It also covers live preset interaction, placed-component Edit/Interact switching, iframe pointer/tab gating, sandbox `Esc` exit, and preview-only transient-state reset before capture.
+The packaged **0.1.24-beta.1** coverage includes the Agent Eyes MCP handshake/auth/tool schemas, extension-host session/control-plane state, request correlation/timeouts, live selector inspection, persistent Agent pins, review/question flows, component and markup proposal intent boundaries, visual snapshot verification, modern Skopeo webview UI, responsive Draw/Layers behavior, renderer-manifest validation, managed-library install/update/repair/remove, staged SHA-256 verification and rollback, managed-to-bundled fallback, sandboxed real-component interaction, provider-aware catalog browsing, explicit appearance propagation, screenshot-aware Auto Contrast, and preview-only transient-state reset before capture.
 
 ## Security and privacy
 
@@ -409,7 +450,7 @@ The packaged 0.1.23 coverage includes Draw side-panel/scroll containment, render
 - Page HTML and screenshots are never written to extension logs.
 - Form values, editable text, scripts, styles, inline event handlers, and bridge UI are removed from captured HTML.
 - Screenshots are limited to 4 MB and full messages to 40 MB.
-- No Visual AI Bridge cloud service receives the captured data.
+- No Skopeo cloud service receives the captured data.
 - The shadcn preview library is separate from the user workspace. **Install Library**, **Update**, and **Repair** download only Skopeo's versioned prebuilt renderer package into extension global storage. The extension requires the approved Skopeo download path, checks the package byte limit and SHA-256, verifies every file hash and safe relative path, validates the renderer manifest/counts, stages the installation, and atomically activates it with rollback. **Remove** deletes only the managed extension-storage copy and falls back to the bundled renderer. Annotation text, screenshots, DOM/CSS context, and workspace source are never sent with library downloads or registry fallback requests.
 
 ## Known limitations
@@ -426,7 +467,7 @@ The packaged 0.1.23 coverage includes Draw side-panel/scroll containment, render
 
 ### Automatic injection was blocked
 
-The target CSP does not authorize the injected external script. Visual AI Bridge intentionally does not weaken it. Follow the diagnostic page and the manual-injection steps above, including the required script nonce and `connect-src` allowance.
+The target CSP does not authorize the injected external script. Skopeo intentionally does not weaken it. Follow the diagnostic page and the manual-injection steps above, including the required script nonce and `connect-src` allowance.
 
 ### The panel stays on “Waiting for browser”
 
@@ -435,7 +476,7 @@ Check that:
 - the target development server is running
 - the URL uses HTTP and a loopback hostname
 - the configured starting port is available, or Skopeo can select a later loopback port automatically
-- the opened page is the Visual AI Bridge proxy URL
+- the opened page is the Skopeo proxy URL
 - manual mode's CSP permits both the runtime script and bridge WebSocket
 
 Default health endpoint (replace `43119` if Skopeo started on a later port):
