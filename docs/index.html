@@ -1496,8 +1496,8 @@
               <div class="num">01 / INSPECT</div>
               <h3>Open your real preview</h3>
               <p>
-                Run your localhost app through Skopeo's local proxy and inspect the
-                interface in the browser you already use.
+                Open your running localhost app with Skopeo and inspect the interface in
+                the browser you already use.
               </p>
             </article>
             <article class="step">
@@ -1605,14 +1605,12 @@
                 Draw with pen, arrows, shapes, text, and eraser tools; paste reference
                 screenshots with crop, opacity, rotation, and layer controls; or browse
                 Provider → Category → Component → Preset in a side panel beside the
-                screenshot. The shadcn/ui renderer library currently provides 61 real
-                families and 365 presets. Install, update, repair, or remove the managed
-                preview library from Skopeo without adding preview files to your
-                project; real presets render locally in isolated sandbox frames and can
-                be dragged into place while Draw scrolling stays inside the editor.
-                Selecting a placed component also opens Appearance controls for
-                preview-only contrast, explicit Background/Text/Border colors,
-                screenshot-aware Auto Contrast, and Reset shadcn.
+                screenshot. Skopeo includes shadcn/ui with 61 component families and 365
+                presets plus Mantine with 20 families and 61 presets. Preview libraries
+                can be installed, updated, repaired, or removed from Skopeo without
+                adding preview packages to your project. Placed components can also be
+                adjusted with appearance and contrast controls before saving the visual
+                specification.
               </p>
             </article>
             <article class="card">
@@ -1667,9 +1665,9 @@
               </div>
               <h3>Route-aware sessions</h3>
               <p>
-                SPA navigation through pushState, replaceState, back/forward, and hash
-                changes updates the canonical localhost route written to
-                <code>context.json</code> and <code>PROMPT.md</code>.
+                Skopeo follows navigation inside modern single-page applications so
+                annotations and generated context stay associated with the route you are
+                actually viewing.
               </p>
             </article>
             <article class="card">
@@ -1684,15 +1682,11 @@
                   <path d="m4 7 8 4 8-4M12 11v10" />
                 </svg>
               </div>
-              <h3>Managed component library</h3>
+              <h3>Managed component libraries</h3>
               <p>
-                Install, update, repair, or remove the shadcn/ui renderer in
-                Skopeo-owned global storage. Packages are hash-verified, staged,
-                manifest-validated, atomically activated, and rolled back on failure. If
-                a managed renderer is older than the renderer bundled with Skopeo, the
-                newer bundled copy becomes active immediately while the managed
-                installation remains available for Update/Repair/Remove. The user
-                project is never modified by preview-library management.
+                Browse components separately from library management. Skopeo can
+                install, update, repair, or remove its preview libraries without adding
+                those packages to the application you are inspecting.
               </p>
             </article>
             <article class="card">
@@ -1710,9 +1704,8 @@
               <h3>Release + diagnostics tooling</h3>
               <p>
                 Built-in update checks, direct VSIX downloads, structured bug reporting,
-                release-safe packaging, and graceful fallbacks keep the workflow usable
-                when direct agent handoff, component capture, or managed storage is
-                unavailable.
+                and graceful fallbacks keep the workflow usable when an optional feature
+                or direct agent handoff is unavailable.
               </p>
             </article>
             <article class="card">
@@ -1768,7 +1761,7 @@
               </div>
               <h3>Live component interaction</h3>
               <p>
-                Skopeo 0.1.24-beta.3 includes live preset previews plus Edit / Interact
+                Skopeo 0.1.24-beta.4 includes live preset previews plus Edit / Interact
                 mode for shadcn/ui and Mantine components. Hover, click, type, switch
                 tabs, open accordions and menus, use keyboard controls, and scroll
                 inside the sandbox; press Esc to return to transforms. Temporary
@@ -1788,11 +1781,9 @@
               </div>
               <h3>Validated 0.1.24 beta</h3>
               <p>
-                The current beta passes TypeScript, ESLint, Prettier, production build,
-                VSIX packaging, and
-                <strong>250 / 250 tests across 59 unit-test files</strong>. shadcn/ui
-                uses renderer 0.1.3, while Mantine 0.1.0 adds 20 real component families
-                and 61 presets.
+                The current source line is validated by
+                <strong>267 / 267 automated tests across 60 test files</strong>,
+                together with static checks and a production build.
               </p>
             </article>
           </div>
@@ -1806,14 +1797,11 @@
               <p class="kicker">Local-first by design</p>
               <h2>Your UI context stays on your machine.</h2>
               <p>
-                Skopeo binds its bridge to loopback, writes generated context inside
-                your project, and does not require a hosted Skopeo backend, account,
-                analytics service, or paid API. Optional shadcn/ui library installation
-                downloads a versioned Skopeo-built renderer into extension-owned global
-                storage, verifies package and file hashes, and atomically activates it;
-                removing it falls back to the renderer bundled with Skopeo. Your
-                annotations, screenshots, DOM/CSS context, and workspace source are
-                never sent with library downloads or registry fallback requests.
+                Skopeo keeps the normal annotation workflow local, writes generated
+                context inside your project, and does not require a hosted Skopeo
+                backend, account, analytics service, or paid API. Component-library and
+                release downloads do not include your annotations, screenshots, DOM/CSS
+                context, or workspace source.
               </p>
             </div>
             <div class="terminal" aria-label="Example generated files">
