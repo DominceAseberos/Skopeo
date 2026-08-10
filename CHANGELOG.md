@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.1.23 - 2026-08-10
+
+- Reworked managed component-library controls into compact icon-only **Available** and **Installed** tabs. Installed libraries are removed from the Available view, successful installs switch directly to Installed, and a warning badge appears on the relevant tab when an install fails or an installed library has an update available.
+- Added **Mantine** as Skopeo's second managed real-component library with **20 component families / 61 presets** built from `@mantine/core`. Mantine runs in its own provider-scoped sandbox renderer and global-storage installation, coexists with shadcn/ui, supports live Interact mode and renderer capture, and never installs packages into the inspected project.
+- Mantine's first managed install can promote the trusted renderer bundled in the VSIX into extension global storage, while later update/repair operations retain the verified Skopeo package flow. Appearance reset wording is now provider-neutral.
+
 ## 0.1.22 - 2026-08-10
 
 - Added live **Interact mode** for real renderer-backed components in Draw. Edit mode keeps drag/resize/rotate/layer controls; Interact mode gives the sandboxed component frame pointer and keyboard input for hover, click, typing, tabs, accordions, dropdowns, tooltips, sliders, carousels, and internal scrolling.

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "providerId": "mantine",
+  "rendererVersion": "0.1.0",
+  "packageUrl": "https://raw.githubusercontent.com/DominceAseberos/Skopeo/main/docs/downloads/mantine-renderer-0.1.0.skopeo-library.json",
+  "packageSha256": "1c97c5935358b4195c790e931d7e6edf9e17a3f2f3c3d9f283ee81975eebc131",
+  "packageBytes": 1269500,
+  "families": 20,
+  "presets": 61
+}
