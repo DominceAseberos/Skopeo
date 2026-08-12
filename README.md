@@ -1,7 +1,7 @@
 # Skopeo
 
 ![Beta](https://img.shields.io/badge/beta-0.1.24--beta.4-f59e0b)
-![Stable](https://img.shields.io/badge/stable-0.1.23-2563eb)
+![Stable](https://img.shields.io/badge/stable-0.1.24-2563eb)
 [![Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui)
 ![Local First](https://img.shields.io/badge/local-first-16a34a)
 ![Agent Eyes](https://img.shields.io/badge/MCP-Agent%20Eyes-0891b2)
@@ -38,7 +38,7 @@ Skopeo acts as the visual communication layer between the developer, the running
 
 ## Quick start
 
-1. Install Skopeo from the Visual Studio Code Marketplace or from a Skopeo VSIX release.
+1. Install Skopeo from the Visual Studio Code Marketplace, Open VSX, or from a Skopeo VSIX release.
 2. Open your local web project and start its development server.
 3. Open the **Skopeo** Activity Bar view.
 4. Enter the local app URL and open it through Skopeo.
@@ -103,17 +103,15 @@ http://127.0.0.1:5173
 
 Skopeo has separate release channels:
 
-- **Stable** — proven release line. Current stable: `0.1.23`.
+- **Stable** — proven release line. Current stable: `0.1.24`.
 - **Beta** — opt-in prerelease line for newer features. Current beta source line: `0.1.24-beta.4`.
 
 The update channel can be selected in Skopeo settings.
 
-## Privacy
+## Privacy and security
 
-Skopeo is local-first. The normal annotation workflow does not require a Skopeo account or hosted Skopeo backend. Generated visual context is written into the current local workspace.
-
-Component-library updates and release checks may fetch Skopeo distribution assets, but annotation text, screenshots, DOM context, and project source are not uploaded as part of those downloads.
+Skopeo is local-first. The normal annotation workflow does not require a Skopeo account or hosted Skopeo backend, and generated visual context is written into the current local workspace. See [PRIVACY.md](PRIVACY.md) for outbound requests and data-handling details for stable 0.1.24, [SECURITY.md](SECURITY.md) for vulnerability reporting, and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for major bundled open-source components.
 
 ## License
 
-MIT
+[MIT](LICENSE)
