@@ -4,46 +4,23 @@ Public release notes for Skopeo. Detailed engineering history is maintained in t
 
 ## Unreleased
 
+## 0.1.25 - 2026-08-18
+
+- Added local runtime-to-source intelligence so supported React/Vite and Next.js development annotations can resolve exact files, lines, columns, owning components/functions, and confidence states.
+- Added Source Structure ownership for markup, styles, state/hooks, behavior, related files, and structural graph relationships, with safe fallback states when exact provenance is unavailable.
+- Added exact source navigation through the current VS Code-compatible IDE instead of requiring users or agents to manually search for the owning file.
+- Redesigned the browser preview around a compact five-action toolbar, a readable left annotation rail, contextual Notes beside the selected target, a draggable Source / Changes inspector, and a bottom-right hide/show control.
+- Added collision-aware overlay placement so Skopeo panels avoid covering each other when another side of the target has room.
+- Improved Source / Changes readability and file click targets, moved transient messages to bottom-center, and kept Skopeo controls usable inside native browser dialogs.
+- Added customizable preview shortcuts with a compact multi-column key picker, duplicate-key prevention, and immediate runtime updates.
+- Fixed long annotation text so it wraps vertically, grows to a bounded height, and never requires horizontal scrolling.
+- Hardened Code Intelligence indexing, cache isolation, workspace realpath/symlink handling, refresh scheduling, parsing, and process integration while keeping generated index state outside the inspected repository.
+
 ## 0.1.24 - 2026-08-11
 
-- Promoted the current Skopeo visual workflow to stable: the modern compact sidebar, browser annotation controls, responsive Draw workspace, Layers / Added Items, pasted references, and improved interaction/focus behavior.
-- Stable now includes the current shadcn/ui and Mantine component-preview workflow, separate Components / Libraries workspaces, library maintenance states, real component interaction, and appearance/contrast controls.
-- Kept the stable edition focused on the one-way developer-to-agent workflow: **Agent Eyes / Bidirectional MCP is not included in stable 0.1.24 and remains beta-only.**
-- Added explicit stable/beta release packaging so both editions share the same current Skopeo base without maintaining separate codebases.
-
-## 0.1.24-beta.4 - 2026-08-11
-
-- Agent Eye now opens a local status page instead of copying an endpoint URL from the inline action. Full MCP client configuration remains a separate explicit command.
-- Inspect and Collaborate modes can be changed in place from both the Skopeo sidebar and live browser Agent panel without leaving the inspected application.
-- Agent questions and visual proposals remain non-intrusive until the developer opens them for review.
-- Pending component and markup proposals can be hidden and shown again without accepting or rejecting them.
-- The component toolbox now separates **Components** and **Libraries** into focused workspaces, with library update/error attention states.
-- Clarified compatibility: the Skopeo extension UI targets VS Code and compatible VS Code-based IDEs; external MCP-compatible agents can connect through Agent Eyes.
-- Refined public documentation to focus on product capabilities while keeping implementation and architecture documentation private.
-- Added Skopeo-originated task activity callbacks in beta so compatible agents can report working/verifying/completion state back to Skopeo without turning telemetry into human review items.
-- On beta task completion, Skopeo re-checks annotated browser targets and temporarily highlights targets whose rendered DOM/style/geometry signals changed.
-
-## 0.1.24-beta.3 - 2026-08-10
-
-- Fixed annotation-note focus and touch interactions that could interrupt typing or prevent Draw from opening on touch devices.
-- Improved annotation synchronization so active note editing remains stable during browser/session updates.
-- Reworked the Skopeo sidebar into a compact, scrollable Preview / Agent Eye workspace.
-- Improved responsive behavior for short and narrow IDE sidebars.
-- Updated the Skopeo panel branding and status presentation.
-
-## 0.1.24-beta.2 - 2026-08-10
-
-- Fixed the Annotate toggle being visually or behaviorally forced back on by stale state updates.
-- Fixed the preview URL field reverting to a previous localhost URL while editing or reconnecting.
-- Stabilized the empty annotation state to prevent flicker and layout jumping.
-
-## 0.1.24-beta.1 - 2026-08-10
-
-- Introduced **Agent Eyes** for bidirectional browser and coding-agent collaboration.
-- Added live selector inspection, persistent Agent inspection pins, human questions, visual proposals, and before/after verification.
-- Added explicit Off / Inspect / Collaborate modes.
-- Modernized the Skopeo sidebar and responsive Draw workspace.
-- Added Layers / Added Items for managing placed components and pasted references.
+- Promoted the modern compact sidebar, browser annotation controls, responsive Draw workspace, Layers / Added Items, pasted references, and improved interaction/focus behavior.
+- Added the current shadcn/ui and Mantine component-preview workflow, separate Components / Libraries workspaces, library maintenance states, real component interaction, and appearance/contrast controls.
+- Added explicit release packaging and public distribution checks for the stable product line.
 
 ## 0.1.23 - 2026-08-10
 

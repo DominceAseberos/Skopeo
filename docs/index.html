@@ -1125,9 +1125,9 @@
             <div class="eyebrow">Spatial Context & Inspection Engine</div>
             <h1>See it.<span>Mark it. Ship it.</span></h1>
             <p class="hero-copy">
-              Skopeo lets you visually annotate your real browser preview, captures the
-              DOM and CSS context behind each mark, then hands structured UI
-              instructions to your AI coding agent.
+              Skopeo lets you visually annotate your real browser preview, resolves the
+              source that owns supported rendered elements, and hands structured visual
+              + source instructions to your AI coding agent.
             </p>
             <div class="actions">
               <a
@@ -1147,13 +1147,6 @@
                 </svg>
                 <span id="download-label">Download stable VSIX</span>
               </a>
-              <a
-                class="button"
-                id="download-beta-button"
-                href="./downloads/skopeo-ui-beta-latest.vsix"
-                download="skopeo-ui-beta-latest.vsix"
-                >Try 0.1.24 beta</a
-              >
               <a
                 class="button"
                 id="star-button"
@@ -1439,9 +1432,7 @@
               <div class="install-tip">
                 The command-line example is for desktop VS Code. Other VS Code-based
                 IDEs may use a different executable or install menu. Manual VSIX
-                installs also get Skopeo's once-per-day update check. Stable is the
-                default; set <code>visualAIBridge.updateChannel</code> to
-                <code>beta</code> to receive beta VSIX updates. Run
+                installs also get Skopeo's once-per-day stable update check. Run
                 <strong>Skopeo: Check for Updates</strong> anytime to check immediately.
                 Marketplace installs continue to use the IDE's native extension
                 auto-update.
@@ -1558,10 +1549,11 @@
                   <path d="m8 9-4 3 4 3m8-6 4 3-4 3M14 5l-4 14" />
                 </svg>
               </div>
-              <h3>DOM + CSS context</h3>
+              <h3>Source-aware context</h3>
               <p>
-                Each annotation carries a stable selector, sanitized HTML context,
-                visible text, computed CSS, and viewport geometry.
+                Each annotation can carry its selector, HTML/CSS evidence, exact or
+                high-confidence source ownership, file/line location, component context,
+                styles, state/hooks, related files, and viewport geometry.
               </p>
             </article>
             <article class="card">
@@ -1644,11 +1636,11 @@
                   <path d="M8 10h8M8 14h5" />
                 </svg>
               </div>
-              <h3>Floating Notes + Draw workflow</h3>
+              <h3>Contextual Notes + Source</h3>
               <p>
-                Manage active annotations directly in the browser, edit notes, open
-                screenshot thumbnails, draw markup, and save visual intent without
-                switching back to the IDE panel.
+                Open an annotation beside its real target, edit long wrapping notes,
+                jump into Draw or exact Source, and keep the draggable Source / Changes
+                inspector nearby without covering the element you are reviewing.
               </p>
             </article>
             <article class="card">
@@ -1762,11 +1754,11 @@
               </div>
               <h3>Live component interaction</h3>
               <p>
-                Skopeo 0.1.24-beta.4 includes live preset previews plus Edit / Interact
-                mode for shadcn/ui and Mantine components. Hover, click, type, switch
-                tabs, open accordions and menus, use keyboard controls, and scroll
-                inside the sandbox; press Esc to return to transforms. Temporary
-                interaction state is reset before Save Drawing captures AI context.
+                Live preset previews support Edit / Interact mode for shadcn/ui and
+                Mantine components. Hover, click, type, switch tabs, open accordions and
+                menus, use keyboard controls, and scroll inside the sandbox; press Esc
+                to return to transforms. Temporary interaction state is reset before
+                Save Drawing captures AI context.
               </p>
             </article>
             <article class="card">
@@ -1780,11 +1772,12 @@
                   <path d="M4 19h16M6 16V8m4 8V5m4 11v-6m4 6V3" />
                 </svg>
               </div>
-              <h3>Validated 0.1.24 beta</h3>
+              <h3>Source-aware visual context</h3>
               <p>
-                The current source line is validated by
-                <strong>267 / 267 automated tests across 60 test files</strong>,
-                together with static checks and a production build.
+                Skopeo 0.1.25 connects supported rendered elements back to their owning
+                source file, line, component, styles, state/hooks, and related files,
+                then keeps that context attached to the visual annotation sent to your
+                coding workflow.
               </p>
             </article>
           </div>
@@ -1800,9 +1793,13 @@
               <p>
                 Skopeo keeps the normal annotation workflow local, writes generated
                 context inside your project, and does not require a hosted Skopeo
-                backend, account, analytics service, or paid API. Component-library and
-                release downloads do not include your annotations, screenshots, DOM/CSS
-                context, or workspace source.
+                backend or account. Preview targets are limited to local HTTP loopback
+                hosts, the runtime proxy binds to the loopback interface, browser
+                runtime connections are session-authenticated, and source navigation
+                rejects paths outside the selected project. Code Intelligence
+                cache/state stays outside the inspected repository. Component-library
+                and release downloads do not intentionally upload your annotations,
+                screenshots, DOM/CSS context, generated context, or workspace source.
               </p>
             </div>
             <div class="terminal" aria-label="Example generated files">
@@ -1836,13 +1833,6 @@
               href="./downloads/skopeo-ui-latest.vsix"
               download="skopeo-ui-latest.vsix"
               >Download stable VSIX</a
-            >
-            <a
-              class="button"
-              id="download-beta-button-bottom"
-              href="./downloads/skopeo-ui-beta-latest.vsix"
-              download="skopeo-ui-beta-latest.vsix"
-              >Try beta</a
             >
             <a
               class="button"
