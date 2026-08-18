@@ -4,6 +4,14 @@ Public release notes for Skopeo. Detailed engineering history is maintained in t
 
 ## Unreleased
 
+## 0.1.26 - 2026-08-19
+
+- Hardened Skopeo controls inside dynamically opened modals, dialogs, drawers, sheets, and custom vanilla overlays so using Notes, Source / Changes, shortcuts, and other Skopeo UI does not accidentally trigger common outside-click or focus-dismiss behavior.
+- Added class-independent modal inference, nested-modal switching, Shadow DOM traversal, closing-state cleanup, shared overlay observation, and safer top-layer portal handling.
+- Improved screenshot capture stability by waiting for fonts/images, detecting layout shifts, retrying unstable frames, and bounding high-DPI / ultrawide capture memory.
+- Improved screenshot fidelity for local development assets, origin-clean canvases, and visible video frames while keeping Skopeo-owned UI out of captures.
+- Improved preview opening for VS Code-compatible remote/forwarded environments by resolving external preview URIs and preserving the forwarded WebSocket origin.
+
 ## 0.1.25 - 2026-08-18
 
 - Added local runtime-to-source intelligence so supported React/Vite and Next.js development annotations can resolve exact files, lines, columns, owning components/functions, and confidence states.

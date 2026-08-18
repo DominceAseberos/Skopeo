@@ -1,6 +1,6 @@
 # Skopeo
 
-![Stable](https://img.shields.io/badge/stable-0.1.25-2563eb)
+![Stable](https://img.shields.io/badge/stable-0.1.26-2563eb)
 [![VS Code Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui)
 ![Local First](https://img.shields.io/badge/local-first-16a34a)
 ![License](https://img.shields.io/badge/license-MIT-64748b)
@@ -17,21 +17,17 @@ Skopeo adds that missing layer:
 
 **See it → Point at it → Understand its source → Explain it → Send it.**
 
-## Skopeo 0.1.25
+## Skopeo 0.1.26
 
-The current stable release adds a source-aware browser workflow around the existing visual annotation and Draw experience:
+The current stable release makes the browser workflow more resilient across real-world app UI and development environments:
 
-- runtime-to-source provenance for supported React/Vite and Next.js development apps;
-- exact file / line / column navigation when provenance is available;
-- Source Structure for component ownership, styles, state/hooks, and related files;
-- contextual Notes that open beside the selected target;
-- a draggable **Source / Changes** inspector;
-- collision-aware Skopeo overlays;
-- responsive preview controls and larger source click targets;
-- customizable preview shortcuts with a compact key grid;
-- long-note wrapping with bounded vertical scrolling;
-- bottom-right hide/show control that preserves session state;
-- local Code Intelligence state kept outside the inspected repository.
+- Skopeo controls stay usable inside dynamically opened modals, dialogs, drawers, sheets, and custom overlays without triggering common outside-click dismissal;
+- nested modal and Shadow DOM handling keeps Skopeo attached to the active interaction context;
+- screenshot capture waits for a stable frame and retries once when layout or viewport geometry changes;
+- local development images, origin-clean canvases, and visible video frames are preserved more reliably in captured context;
+- high-DPI and ultrawide screenshots are bounded to avoid unnecessary memory spikes while retaining useful detail;
+- forwarded/remote VS Code-compatible environments can resolve the preview URL through the IDE and keep the browser bridge on the forwarded origin;
+- the source-aware workflow from 0.1.25 remains available, including exact navigation, Source Structure, contextual Notes, and the draggable **Source / Changes** inspector.
 
 ## Core workflow
 
@@ -113,7 +109,7 @@ Use the GitHub issue templates in this repository for reproducible bugs. Include
 
 ## Stable release
 
-Current stable: **0.1.25**
+Current stable: **0.1.26**
 
 See `CHANGELOG.md` for public release notes.
 
