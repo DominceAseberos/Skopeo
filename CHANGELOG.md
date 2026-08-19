@@ -4,6 +4,16 @@ Public release notes for Skopeo. Detailed engineering history is maintained in t
 
 ## Unreleased
 
+## 0.1.27 - 2026-08-19
+
+- Hardened the localhost preview bridge against DNS-rebinding-style host confusion while preserving explicitly resolved remote/forwarded IDE origins and WebSocket connectivity.
+- Added bounded decompression for proxied HTML responses and serialized screenshot capture so malformed compression or repeated timed-out captures cannot stack unbounded extension-host work.
+- Added defense-in-depth redaction for sensitive DOM attributes and URL parameters before `.ai-context` is written, and marked captured page content as untrusted evidence in AI handoffs to reduce prompt-injection risk.
+- Added VS Code Restricted Mode protections that prevent workspace-controlled terminal/custom-agent execution until the workspace is trusted and safely fall back to clipboard handoff when needed.
+- Strengthened stable release isolation so non-stable internal collaboration/MCP markers are physically absent from compiled stable bundles and audited before packaging.
+- Reworked stable packaging to use an isolated staging workspace instead of temporarily mutating source manifests or renderer state; the packaged VSIX now also includes the license explicitly.
+- Resolved the remaining development dependency advisory and documented the current Windows-x64 native graph-enrichment boundary with graceful source-resolution fallback on other supported environments.
+
 ## 0.1.26 - 2026-08-19
 
 - Hardened Skopeo controls inside dynamically opened modals, dialogs, drawers, sheets, and custom vanilla overlays so using Notes, Source / Changes, shortcuts, and other Skopeo UI does not accidentally trigger common outside-click or focus-dismiss behavior.
