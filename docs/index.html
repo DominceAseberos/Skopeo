@@ -1181,6 +1181,13 @@
                 rel="noreferrer"
                 >VS Code Marketplace</a
               >
+              <a
+                class="button"
+                href="https://open-vsx.org/extension/Domincee/skopeo-ui"
+                target="_blank"
+                rel="noreferrer"
+                >Open VSX</a
+              >
             </div>
             <div class="release-note" id="release-note" aria-live="polite">
               Latest packaged VSIX · direct download
@@ -1397,30 +1404,41 @@
       <section id="install">
         <div class="shell">
           <div class="section-head">
-            <p class="kicker">Manual VSIX setup</p>
-            <h2>Download it once. Set it up in minutes.</h2>
+            <p class="kicker">Registry or manual VSIX setup</p>
+            <h2>Choose your install path. Set it up in minutes.</h2>
           </div>
 
           <div class="install-grid">
             <article class="install-card">
-              <h3>1. Install the VSIX</h3>
-              <p>No Marketplace account or GitHub Release is required.</p>
+              <h3>1. Install Skopeo</h3>
+              <p>
+                Use the registry your IDE supports, or install the same stable VSIX
+                directly.
+              </p>
               <ol class="install-steps">
                 <li>
-                  <strong>Download Skopeo</strong> using the direct VSIX button above.
+                  <strong>Visual Studio Code:</strong> install Skopeo from the
+                  <a
+                    href="https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui"
+                    target="_blank"
+                    rel="noreferrer"
+                    >VS Code Marketplace</a
+                  >.
                 </li>
                 <li>
-                  <strong>In Visual Studio Code:</strong> open Extensions, select the
-                  <strong>…</strong> menu, choose <strong>Install from VSIX…</strong>,
-                  then select <code>skopeo-ui-latest.vsix</code>.
-                </li>
-                <li>
-                  <strong
-                    >In Antigravity, Kiro, or another compatible VS Code-based
-                    IDE:</strong
+                  <strong>Open VSX-based IDEs:</strong> install Skopeo from
+                  <a
+                    href="https://open-vsx.org/extension/Domincee/skopeo-ui"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Open VSX</a
                   >
-                  use its VSIX / extension install action and choose the same downloaded
-                  file.
+                  when that registry is available in your editor.
+                </li>
+                <li>
+                  <strong>Manual install:</strong> download the stable VSIX above, then
+                  use <strong>Extensions → … → Install from VSIX…</strong> or the
+                  equivalent extension-install action in your VS Code-based IDE.
                 </li>
                 <li>
                   Reload the IDE if prompted. Skopeo will appear in the Activity Bar.
@@ -1430,12 +1448,12 @@
                 </li>
               </ol>
               <div class="install-tip">
-                The command-line example is for desktop VS Code. Other VS Code-based
-                IDEs may use a different executable or install menu. Manual VSIX
-                installs also get Skopeo's once-per-day stable update check. Run
-                <strong>Skopeo: Check for Updates</strong> anytime to check immediately.
-                Marketplace installs continue to use the IDE's native extension
-                auto-update.
+                Registry installs use the IDE's normal extension update mechanism.
+                Manual VSIX installs also get Skopeo's once-per-day stable update check;
+                run <strong>Skopeo: Check for Updates</strong> anytime to check
+                immediately. Registry availability can lag the direct GitHub stable
+                VSIX. The command-line example above is for desktop VS Code; other
+                compatible IDEs may use a different executable or install menu.
               </div>
             </article>
 
@@ -1795,12 +1813,17 @@
                 Skopeo keeps the normal annotation workflow local, writes generated
                 context inside your project, and does not require a hosted Skopeo
                 backend or account. Preview targets are limited to local HTTP loopback
-                hosts, the runtime proxy binds to the loopback interface, browser
-                runtime connections are session-authenticated, and source navigation
-                rejects paths outside the selected project. Code Intelligence
-                cache/state stays outside the inspected repository. Component-library
-                and release downloads do not intentionally upload your annotations,
-                screenshots, DOM/CSS context, generated context, or workspace source.
+                hosts; the runtime proxy rejects unexpected Host headers; browser
+                runtime connections are session-authenticated; recognized
+                token/secret-like URL parameters and DOM attributes are redacted from
+                generated text context; and captured page content is marked as untrusted
+                evidence for AI handoff. Restricted Mode blocks workspace-controlled
+                terminal/custom command execution until the workspace is trusted. Source
+                navigation rejects paths outside the selected project, while Code
+                Intelligence cache/state stays outside the inspected repository.
+                Component-library and release downloads do not intentionally upload your
+                annotations, screenshots, DOM/CSS context, generated context, or
+                workspace source.
               </p>
             </div>
             <div class="terminal" aria-label="Example generated files">
@@ -1837,6 +1860,20 @@
             >
             <a
               class="button"
+              href="https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui"
+              target="_blank"
+              rel="noreferrer"
+              >VS Code Marketplace</a
+            >
+            <a
+              class="button"
+              href="https://open-vsx.org/extension/Domincee/skopeo-ui"
+              target="_blank"
+              rel="noreferrer"
+              >Open VSX</a
+            >
+            <a
+              class="button"
               href="https://github.com/DominceAseberos/Skopeo/releases/latest"
               target="_blank"
               rel="noreferrer"
@@ -1868,7 +1905,13 @@
             href="https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui"
             target="_blank"
             rel="noreferrer"
-            >Marketplace</a
+            >VS Code Marketplace</a
+          >
+          <a
+            href="https://open-vsx.org/extension/Domincee/skopeo-ui"
+            target="_blank"
+            rel="noreferrer"
+            >Open VSX</a
           >
           <a href="#top">Back to top ↑</a>
         </div>

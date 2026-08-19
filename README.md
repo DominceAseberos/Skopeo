@@ -2,6 +2,7 @@
 
 ![Stable](https://img.shields.io/badge/stable-0.1.27-2563eb)
 [![VS Code Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui)
+[![Open VSX](https://img.shields.io/badge/Open%20VSX-Registry-6B46C1)](https://open-vsx.org/extension/Domincee/skopeo-ui)
 ![Local First](https://img.shields.io/badge/local-first-16a34a)
 ![License](https://img.shields.io/badge/license-MIT-64748b)
 
@@ -32,7 +33,7 @@ The current stable release hardens the local browser-to-agent workflow without c
 
 ## Core workflow
 
-1. Install Skopeo from the Marketplace or the stable VSIX.
+1. Install Skopeo from the VS Code Marketplace, Open VSX, or the stable VSIX.
 2. Open your web project and start its local development server.
 3. Open the **Skopeo** Activity Bar view.
 4. Enter your localhost URL and open the preview through Skopeo.
@@ -98,11 +99,17 @@ Generated `.ai-context/` can contain your own annotations, screenshots, and deve
 
 Search for **Skopeo** in Extensions, or use the Marketplace badge at the top of this page.
 
+### Open VSX
+
+For compatible VS Code-based IDEs that use the Open VSX Registry, install **Skopeo** from the Open VSX badge at the top of this page.
+
 ### Stable VSIX
 
 The public Skopeo site provides `skopeo-ui-latest.vsix` for manual installation in VS Code-compatible IDEs.
 
 In VS Code: **Extensions → … → Install from VSIX…**
+
+Registry installs use the IDE's normal extension update mechanism. Manual VSIX installs can use **Skopeo: Check for Updates** against the stable direct-download channel. Registry availability can lag the direct GitHub stable VSIX.
 
 ## Documentation inside VS Code
 
