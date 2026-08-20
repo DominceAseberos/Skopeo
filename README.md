@@ -1,6 +1,6 @@
 # Skopeo
 
-![Stable](https://img.shields.io/badge/stable-0.1.27-2563eb)
+![Stable](https://img.shields.io/badge/stable-0.1.28-2563eb)
 [![VS Code Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui)
 [![Open VSX](https://img.shields.io/badge/Open%20VSX-Registry-6B46C1)](https://open-vsx.org/extension/Domincee/skopeo-ui)
 ![Local First](https://img.shields.io/badge/local-first-16a34a)
@@ -18,18 +18,17 @@ Skopeo adds that missing layer:
 
 **See it → Point at it → Understand its source → Explain it → Send it.**
 
-## Skopeo 0.1.27
+## Skopeo 0.1.28
 
-The current stable release hardens the local browser-to-agent workflow without changing the core annotation experience:
+The current stable release strengthens cross-IDE handoff and keeps visual intent intact from browser annotation to coding agent:
 
-- the localhost preview bridge now validates request hosts and forwarded IDE origins to reduce DNS-rebinding exposure while preserving remote/forwarded development workflows;
-- compressed preview HTML is bounded after decompression so unusually small compressed responses cannot expand into unbounded extension-host memory use;
-- sensitive token-, session-, password-, authorization-, and key-like DOM attributes and URL parameters are redacted before generated context is written;
-- generated AI handoffs explicitly treat captured page content as untrusted evidence rather than instructions, reducing prompt-injection risk from inspected applications;
-- VS Code Restricted Mode disables workspace-controlled terminal/custom-agent execution and falls back to safer handoff behavior until the workspace is trusted;
-- screenshot captures are serialized so a timed-out renderer cannot accumulate overlapping full-page capture jobs;
-- stable release bundles are now audited to prove non-stable internal feature paths are physically absent, and release packaging runs from an isolated staging workspace;
-- native structural graph enrichment is currently bundled for Windows x64; other supported environments continue with exact framework provenance and bounded heuristic source resolution when the native graph host is unavailable.
+- Kiro is now a first-class host adapter with live command discovery, first-party activation, update recovery, and a non-blocking text submission path;
+- Kiro image handoff can attach real Skopeo screenshots, Draw markup, and pasted visual references through the verified image-capable agent path;
+- normal incremental **Send** now carries source ownership, Draw actions, placed-component intent, marked-up/original screenshots, and pasted references instead of reducing a visual change to text-only context;
+- visual attachments are validated and fairly budgeted across annotations, prioritizing marked-up intent with a bounded 10-image / 12 MB direct-handoff budget;
+- users can disable direct image attachments with `visualAIBridge.attachImagesToAgent`; a user-level `false` is authoritative and cannot be re-enabled by workspace settings, while text/source/visual-spec context remains available;
+- Angular development source resolution now understands template files, owning TypeScript components, styles, common template event handlers, and generated `.angular` cache exclusions;
+- real Chromium smoke tests now exercise Skopeo's actual screenshot and Canvas2D Draw pipeline, and CI validates Windows/Linux quality plus isolated release packaging.
 
 ## Core workflow
 
@@ -73,7 +72,7 @@ http://localhost:3000
 http://127.0.0.1:5173
 ```
 
-Current source-resolution coverage is strongest for React/Vite and Next.js development mode, with structural fallback support for additional web stacks.
+Current source-resolution coverage is strongest for React/Vite and Next.js development mode. Angular development projects also resolve template/component/style ownership when supported evidence is available, with bounded structural fallback for additional web stacks.
 
 The current stable package bundles native graph enrichment for **Windows x64**. Other desktop/remote extension-host platforms continue to use supported exact runtime provenance and heuristic source resolution when the native graph helper is unavailable; relationship enrichment may be reduced on those platforms.
 
@@ -91,7 +90,7 @@ Skopeo is designed for local development:
 - Code Intelligence cache/state is stored outside the inspected repository;
 - the normal workflow does not require a Skopeo account or hosted Skopeo backend.
 
-Generated `.ai-context/` can contain your own annotations, screenshots, and development context. Review it before sharing or committing it when working with sensitive projects.
+Generated `.ai-context/` can contain your own annotations, screenshots, and development context. Screenshot pixels are not secret-redacted automatically; review visible data before sending, or disable direct image attachments in Skopeo settings when needed.
 
 ## Install
 
@@ -121,7 +120,7 @@ Use the GitHub issue templates in this repository for reproducible bugs. Include
 
 ## Stable release
 
-Current stable: **0.1.27**
+Current stable: **0.1.28**
 
 See `CHANGELOG.md` for public release notes.
 

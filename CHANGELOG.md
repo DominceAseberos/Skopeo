@@ -4,6 +4,17 @@ Public release notes for Skopeo. Detailed engineering history is maintained in t
 
 ## Unreleased
 
+## 0.1.28 - 2026-08-21
+
+- Added first-class Kiro AI handoff with live host detection, on-demand first-party agent activation, safe runtime command discovery, update recovery, and a fast non-blocking text submission path.
+- Added image-aware Kiro handoff so Skopeo screenshots, Draw markup, and pasted visual references reach Kiro's image-capable agent path instead of being reduced to text-only file references.
+- Made the normal incremental **Send** path visual-aware: marked-up screenshots, original screenshots, pasted references, Draw actions, placed-component intent, and source ownership now travel with the same change packet.
+- Added fair visual-attachment budgeting across annotations with marked-up intent prioritized, a 10-image / 12 MB total direct-handoff budget, per-image validation, and explicit omission reporting rather than silent image loss.
+- Added `visualAIBridge.attachImagesToAgent` with an authoritative user-level opt-out that workspace settings cannot re-enable, while retaining textual, source, and visual-spec context.
+- Added Angular development source resolution for template files, owning TypeScript components, styles, template event handlers, and HTML refresh/index behavior while excluding generated `.angular` cache content.
+- Removed the dormant legacy auto-hide/Peek preference path so the bottom-right eye control is the single Skopeo browser-visibility model.
+- Added real Chromium Playwright smoke coverage for `inspectElement -> html2canvas -> PNG` and Canvas2D Draw composition, plus Windows/Linux CI quality jobs and isolated release-audit jobs.
+
 ## 0.1.27 - 2026-08-19
 
 - Hardened the localhost preview bridge against DNS-rebinding-style host confusion while preserving explicitly resolved remote/forwarded IDE origins and WebSocket connectivity.
