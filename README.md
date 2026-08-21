@@ -1,6 +1,6 @@
 # Skopeo
 
-![Stable](https://img.shields.io/badge/stable-0.1.28-2563eb)
+![Stable](https://img.shields.io/badge/stable-0.1.29-2563eb)
 [![VS Code Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=Domincee.skopeo-ui)
 [![Open VSX](https://img.shields.io/badge/Open%20VSX-Registry-6B46C1)](https://open-vsx.org/extension/Domincee/skopeo-ui)
 ![Local First](https://img.shields.io/badge/local-first-16a34a)
@@ -18,17 +18,16 @@ Skopeo adds that missing layer:
 
 **See it → Point at it → Understand its source → Explain it → Send it.**
 
-## Skopeo 0.1.28
+## Skopeo 0.1.29
 
-The current stable release strengthens cross-IDE handoff and keeps visual intent intact from browser annotation to coding agent:
+The current stable release hardens Skopeo for Windows x64 across fresh installs, IDE restarts, port conflicts, and difficult source-resolution cases:
 
-- Kiro is now a first-class host adapter with live command discovery, first-party activation, update recovery, and a non-blocking text submission path;
-- Kiro image handoff can attach real Skopeo screenshots, Draw markup, and pasted visual references through the verified image-capable agent path;
-- normal incremental **Send** now carries source ownership, Draw actions, placed-component intent, marked-up/original screenshots, and pasted references instead of reducing a visual change to text-only context;
-- visual attachments are validated and fairly budgeted across annotations, prioritizing marked-up intent with a bounded 10-image / 12 MB direct-handoff budget;
-- users can disable direct image attachments with `visualAIBridge.attachImagesToAgent`; a user-level `false` is authoritative and cannot be re-enabled by workspace settings, while text/source/visual-spec context remains available;
-- Angular development source resolution now understands template files, owning TypeScript components, styles, common template event handlers, and generated `.angular` cache exclusions;
-- real Chromium smoke tests now exercise Skopeo's actual screenshot and Canvas2D Draw pipeline, and CI validates Windows/Linux quality plus isolated release packaging.
+- the packaged stable VSIX is independently verified on a fresh GitHub-hosted Windows VM, including install/activation, a workspace path with spaces and Unicode, sidebar close/reopen, Start → Stop → Start, runtime-port collision recovery, full IDE relaunch, real Chromium screenshot/Draw smoke, and native Codebase Memory startup/index/query;
+- Kiro 0.12.333 and Antigravity IDE 1.107.0 pass packaged-VSIX clean-profile validation on Windows, including restart recovery, dynamic Source Intelligence, and host-scoped AI handoff; Kiro also keeps the verified direct image-attachment route, while Antigravity does not claim image pixels are attached when its current host API is text-only;
+- Source Intelligence now rebinds to the selected project after preview reconnects, sidebar recreation, and project-scope changes, and can resolve classless dynamic React children when strong runtime-component and ancestor-structure evidence agree instead of requiring rendered text to exist literally in source;
+- the local preview bridge automatically moves to another loopback port when the configured runtime port is occupied, with a bounded sequential search and OS-assigned fallback;
+- the Windows x64 native Codebase Memory host is selected through an integrity manifest and verified before execution; cache/state stays outside the inspected repository and source resolution continues safely when graph enrichment is unavailable;
+- macOS, Linux, ARM64, WSL/SSH/Dev Containers, and other remote extension-host environments are not claimed as release-verified in 0.1.29.
 
 ## Core workflow
 
@@ -63,7 +62,7 @@ Skopeo includes managed preview libraries for shadcn/ui and Mantine. These libra
 
 ## IDE and framework support
 
-Skopeo targets desktop **Visual Studio Code 1.90+** and compatible VS Code-based IDEs that expose the extension APIs Skopeo uses. Antigravity and Kiro are known compatible environments.
+Skopeo 0.1.29 is release-verified for **Windows x64**. The packaged VSIX is independently validated on a clean Visual Studio Code Windows VM, and clean-profile Windows validation also covers Kiro 0.12.333 and Antigravity IDE 1.107.0. Other operating systems and remote extension-host environments are intentionally not advertised as release-verified yet.
 
 The browser workflow accepts local HTTP development targets such as:
 
@@ -74,7 +73,7 @@ http://127.0.0.1:5173
 
 Current source-resolution coverage is strongest for React/Vite and Next.js development mode. Angular development projects also resolve template/component/style ownership when supported evidence is available, with bounded structural fallback for additional web stacks.
 
-The current stable package bundles native graph enrichment for **Windows x64**. Other desktop/remote extension-host platforms continue to use supported exact runtime provenance and heuristic source resolution when the native graph helper is unavailable; relationship enrichment may be reduced on those platforms.
+The current stable package bundles verified native graph enrichment for **Windows x64**. If the native host is missing, fails integrity validation, or cannot start, Skopeo keeps exact runtime provenance and bounded heuristic source resolution available instead of making Codebase Memory a single point of failure. macOS/Linux/ARM64/remote-host behavior remains unverified for this release.
 
 ## Privacy and security
 
@@ -120,7 +119,7 @@ Use the GitHub issue templates in this repository for reproducible bugs. Include
 
 ## Stable release
 
-Current stable: **0.1.28**
+Current stable: **0.1.29**
 
 See `CHANGELOG.md` for public release notes.
 

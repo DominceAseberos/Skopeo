@@ -4,6 +4,16 @@ Public release notes for Skopeo. Detailed engineering history is maintained in t
 
 ## Unreleased
 
+## 0.1.29 - 2026-08-21
+
+- Hardened Windows x64 portability and independently verified the packaged stable VSIX on a fresh GitHub-hosted Windows VM across install/activation, Unicode + spaced workspace paths, sidebar recreation, Start/Stop/Start, occupied runtime ports, full IDE relaunch, Chromium screenshot/Draw smoke, release packaging, and native Codebase Memory startup/index/query.
+- Added clean-profile packaged-VSIX validation for Kiro 0.12.333 and Antigravity IDE 1.107.0 on Windows, including host detection, source enrichment, lifecycle recovery, and host-scoped AI handoff. Kiro keeps its verified image-capable path; Antigravity explicitly reports image pixels as unsupported rather than silently claiming attachment.
+- Strengthened dynamic source resolution for classless runtime children whose rendered text comes from data: a verified runtime component declaration plus two distinctive ancestor signals and the target tag can establish high confidence without requiring a literal text/attribute match.
+- Made Source Intelligence self-healing across preview reconnects, sidebar recreation, workspace trust/project-scope changes, and compatible IDE lifecycle differences.
+- Added runtime-port collision recovery with bounded sequential loopback probing and an OS-assigned fallback port.
+- Added native Codebase Memory host manifest/integrity verification and fresh-device smoke coverage while keeping cache/state outside the inspected repository and preserving exact/heuristic fallback when graph enrichment is unavailable.
+- Kept the 0.1.29 support claim Windows-first: macOS/Linux/ARM64 and remote extension-host environments remain unverified rather than inferred from source portability.
+
 ## 0.1.28 - 2026-08-21
 
 - Added first-class Kiro AI handoff with live host detection, on-demand first-party agent activation, safe runtime command discovery, update recovery, and a fast non-blocking text submission path.
